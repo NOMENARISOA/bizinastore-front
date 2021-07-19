@@ -1,0 +1,160 @@
+/** {*/
+	/*margin: 0;*/
+	/*padding: 0;*/
+/*}*/
+
+/*body{*/
+	/*font-family: Verdana;*/
+	/*font-size: 12px;*/
+	/*background-color: black;*/
+	/*text-align: center;*/
+	/*height: 100%;*/
+/*}*/
+
+/*div{*/
+	/*overflow: auto;*/
+/*}*/
+
+/*h1, h2, h3 {*/
+	/*font-family: Georgia;*/
+	/*font-style: italic;*/
+/*}*/
+
+/*h2{*/
+	/*font-size: 16px;	*/
+	/*color: #333333;*/
+	/*padding-bottom: 5px;*/
+/*}*/
+
+/*h1{*/
+	/*padding: 10px;*/
+	/*font-size: 36px;*/
+	/*color: white;*/
+/*}*/
+
+/*h3{*/
+	/*color: white;*/
+	/*font-size: 20px;*/
+/*}*/
+
+	/*h3 a{*/
+		/*color: #DB5C04;*/
+	/*}*/
+
+/*li{*/
+	/*list-style: none;	*/
+/*}*/
+
+/*#wrapper{*/
+	/*margin: 0px auto;*/
+	/*text-align: left;*/
+	/*width: 960px;*/
+/*}*/
+
+
+
+/*.no_more{*/
+/*    background-color: white;*/
+/*    color: gray;*/
+/*    cursor: default;*/
+/*}*/
+
+/*.ellipse{*/
+/*	float: left;*/
+/*}*/
+
+/*.page_navigation>a,.page_navigation>a*/
+/*{*/
+/*	padding:9px 15px;*/
+/*	font-size:15px;*/
+/*	color:#7e8890;*/
+/*	background-color:#fff;*/
+/*	border:none;*/
+/*	margin:0;*/
+/*	transition:.15s linear*/
+/*}*/
+/*.page_navigation>a:hover,.page_navigation>a:focus,.page_navigation>a:hover,.page_navigation>a:focus*/
+/*{*/
+/*	color:#fff;*/
+/*	background-color:#29aafe*/
+/*}*/
+/*.page_navigation>.active>a,.page_navigation>.active>a:hover,.page_navigation>.active>a:focus*/
+/*{*/
+/*	background-color:#29aafe*/
+/*}*/
+/*.page_navigation.no-shadow*/
+/*{*/
+/*	box-shadow:none*/
+/*}*/
+/*.container{*/
+	/*width: 260px;*/
+	/*float: left;*/
+	/*margin: 50px 10px 10px;*/
+	/*padding: 20px;*/
+/*	!*background-color: white;*!*/
+/*!*}*!*/
+.page_navigation a{
+	/*margin: 0.2% !important;*/
+	background-color:transparent ;
+	color:#212529 ;
+	/*border-radius: 4px;*/
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	line-height: 44px;
+	text-align: center;
+	box-shadow: 0px 1px 2px 0px rgba(50,50,50,0.15);
+}
+.page_navigation a:hover{
+	color: #fff !important;
+	background-color:#dd4b39 ;
+}
+.page_navigation .first_link {
+	background-color: rgb(255, 255, 255);
+	font-size: 0.5rem !important;
+}.page_navigation .previous_link {
+	 background-color: rgb(255, 255, 255);
+	font-size: 0.5rem !important;
+}.page_navigation .next_link {
+	  background-color: rgb(255, 255, 255);
+	font-size: 0.5rem !important;
+}.page_navigation .last_link {
+	   background-color: rgb(255, 255, 255);
+	font-size: 0.5rem !important;
+}
+
+.page_navigation , .alt_page_navigation{
+	padding-bottom: 20px;
+	font-weight: 700;
+	font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+	font-size: 1rem;
+}
+
+.page_navigation a, .alt_page_navigation a{
+	/*padding:3px 5px;*/
+	/*margin:2px;*/
+	color:#212529;
+	text-decoration:none;
+	float: left;
+	font-family: Tahoma;
+	font-size: 12px;
+	/*background-color:#DB5C04;*/
+}
+.active_page{
+	background-color: #dd4b39 !important;
+	color:white !important;
+	/*border-radius: 4px;*/
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	line-height: 44px;
+	text-align: center;
+}
+
+.content, .alt_content{
+	color: black;
+}
+
+.content li, .alt_content li, .content > p{
+	padding: 20px !important;
+}
