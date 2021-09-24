@@ -150,8 +150,8 @@ class UsersController extends Controller
     public function send_message(Request $request){
         $conversation = new conversation();
         $conversation->annonce_id = $request->get('annonce_id');
-        $conversation->annonceur_id = $request->get('annonceur_id');
-        $conversation->user_id = Auth::user()->id;
+        $conversation->sender = $request->get('user_id');
+        $conversation->received = Auth::user()->id;
         $conversation->save();
         // MESSAGE
         $message = new message();

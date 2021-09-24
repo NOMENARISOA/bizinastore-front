@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\annonce;
 use App\Models\conversation;
 use App\Models\message as ModelsMessage;
 use Illuminate\Support\Facades\Auth;
@@ -12,13 +13,37 @@ class Message extends Component
     public $conversation_activate ="";
     public $conversation_selected ="";
     public $message ="";
-
+    private $conversations = [] ;
     public function mount(){
-        if(Auth::user()->conversation->count() >0){
-            $this->conversation_activate = Auth::user()->conversation->first()->id;
-            $this->conversation_selected = conversation::findOrfail($this->conversation_activate);
+        $this->getConversation();
+
+
+        if(count($this->conversations) >0){
+
+            $this->conversation_activate = $this->conversations[0]->id;
+            $this->conversation_selected = $this->conversations[0];
         }
 
+    }
+
+    public function getConversation(){
+        $messages = ModelsMessage::where("user_id",'=',Auth::user()->id)->groupBy("conversation_id")->get();
+
+        foreach($messages as $message){
+            $this->conversations += array(conversation::findOrfail($message->conversation_id));
+        }
+
+        $annonces = annonce::where("user_id",'=',Auth::user()->id)->get();
+        foreach($annonces as $annonce){
+
+            if($annonce->conversation->count() > 0){
+               foreach($annonce->conversation as $conversation){
+                $this->conversations += array(conversation::findOrfail($conversation->id));
+               }
+
+            }
+        }
+        ///dd($this->conversations);
     }
 
     public function select_conversation($id){
@@ -44,8 +69,10 @@ class Message extends Component
 
     public function render()
     {
+        $this->getConversation();
+
         return view('livewire.message',[
-            'conversations'=> Auth::user()->conversation,
+            'conversations'=> $this->conversations,
             'messages'=>ModelsMessage::where('conversation_id','=',$this->conversation_activate)->orderBy('created_at','ASC')->get()
         ]);
     }
