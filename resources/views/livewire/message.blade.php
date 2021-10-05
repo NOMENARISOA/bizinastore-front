@@ -66,6 +66,7 @@
 
 
                             <script>
+
                                 var objDiv = document.getElementById("chatcard");
                                 console.log("ok");
                                 objDiv.scrollTop = objDiv.scrollHeight;
