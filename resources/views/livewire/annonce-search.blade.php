@@ -39,7 +39,21 @@
                                 </div>
                             </div>
                             <div class="col-9">
-                                <input type="text" style="background-color: transparent; border:none" placeholder="Recherche" wire:model="search_query" name="search" id="search">
+                                <input type="text" style="background-color: transparent; border:none" placeholder="Recherche" wire:model.defer="search_query" name="search" id="search">
+                                <script type="text/javascript">
+                                    var route = "{{ route('api.autocompleteSearch') }}";
+
+                                    $('#search').typeahead({
+                                        source: function (query, process) {
+                                            return $.get(route, {
+                                                term: query
+                                            }, function (data) {
+                                                console.log(data);
+                                                return process(data);
+                                            });
+                                        }
+                                    });
+                                </script>
                             </div>
                         </div>
                     </div>

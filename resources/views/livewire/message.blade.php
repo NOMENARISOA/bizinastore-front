@@ -2,7 +2,7 @@
    <div class="row justify-content-center" style="padding: 2%; min-height: 600px;max-height: 600px">
         <div class="col-md-3">
             <div class="shadow" style="background-color: #00A1F1; padding :2%; border-radius: 20px; max-height: 10%">
-                <h2 class="text-center" style="color:white;">Liste des vendeurs</h2>
+                <h2 class="text-center" style="color:white;">Conversations</h2>
             </div>
 
             {{-- START CHAT CLIENT --}}

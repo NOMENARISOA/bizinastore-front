@@ -91,3 +91,7 @@ Route::get('/{directory}/{filename}', function ($directory,$filename)
     dd($response);
     return $response->download;
 })->name('file.open');
+
+//API
+Route::get("api/subcategory/{category}", [App\Http\Controllers\APIController::class, 'getSubCategory'])->name('api.subcategory');
+Route::get("api/autocomplete/search", [App\Http\Controllers\APIController::class, 'autocompleteSearch'])->name('api.autocompleteSearch');

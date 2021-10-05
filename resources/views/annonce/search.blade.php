@@ -39,6 +39,7 @@
         background: url('http://localhost:8000/assets/icon/icon-menu.png') no-repeat left;
      }
  </style>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-3-typeahead/4.0.1/bootstrap3-typeahead.min.js"></script>
  @livewireStyles
 
 <!--Shop Start-->

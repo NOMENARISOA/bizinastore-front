@@ -16,4 +16,8 @@ class categorie extends Model
     public function groupe_categorie(){
         return $this->belongsTo('App\Models\groupe_categorie','groupe_categorie_id');
     }
+
+    public function sub_category(){
+        return $this->hasMany('App\Models\sub_category','category_id');
+    }
 }

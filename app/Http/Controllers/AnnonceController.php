@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\annonce;
 use App\Models\annonce_signal;
+use App\Models\annonce_sub_categorie_value;
 use App\Models\categorie;
 use App\Models\etat;
 use App\Models\image;
@@ -36,9 +37,6 @@ class AnnonceController extends Controller
      */
     public function create()
     {
-
-
-
         $mode_paiements  = mode_paiement::all();
         $categories = categorie::all();
         $type_produits = type_produit::all();
@@ -59,7 +57,7 @@ class AnnonceController extends Controller
     public function store(Request $request)
     {
         $users = Auth::user();
-        // dd($request->all());
+
         $annonce = new annonce();
         $annonce->titre = $request->get('titre');
         $annonce->description = $request->get('description');
@@ -69,14 +67,29 @@ class AnnonceController extends Controller
         $annonce->region_id = $request->get('region_id');
         $annonce->user_id = $users->id;
         $annonce->categorie_id = $request->get('category');
-        $annonce->type_produit_id = $request->get('type_produit');
+        /*$annonce->type_produit_id = $request->get('type_produit');
         $annonce->type_annonce_id = 1;
         $annonce->marque_id = $request->get('marque');
         $annonce->model_produit_id = $request->get('model_produit');
-        $annonce->etat_produit_id = $request->get('etat');
+        $annonce->etat_produit_id = $request->get('etat');*/
         $annonce->mode_paiement_id = $request->get('mode_paiement');
 
+        //ADD VALUE SUB CATEGORY ANNONCE
+     //   dd($request->all());
+
         $annonce->save();
+
+        $category = categorie::findOrfail($request->get('category'));
+        if($category->sub_category->count()>0){
+            foreach($category->sub_category as $sub_category){
+                $annonce_sub_category_value = new annonce_sub_categorie_value();
+                $annonce_sub_category_value->annonce_id = $annonce->id;
+                $annonce_sub_category_value->sub_category_id = $sub_category->id;
+                $annonce_sub_category_value->value = $request->get($sub_category->name);
+                $annonce_sub_category_value->save();
+            }
+        }
+
         // AJOUT IMAGE
         if($request->image){
             $foler_for_image = preg_replace('~[\\\\/$^."\':*?"<>|]~','_',$request->get('titre'));
