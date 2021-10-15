@@ -38,6 +38,28 @@
                             <h4 class="title" style="font-weight: bold; color:#FFBB02; margin-top: 5%">{{$annonce->prix}} Ar </h4>
                             <p class="title" style="font-weight: bold; color:#00A1F1; text-transform: none; font-size: 1.3em; border-bottom: 2px solid #00A1F1;padding-bottom: 15px; margin-top: 2%">Description du produit</p>
                             <p>{{$annonce->description}}</p>
+
+                            @if($annonce->sub_category_value->count() > 0)
+                                <p class="title" style="font-weight: bold; color:#00A1F1; text-transform: none; font-size: 1.3em; border-bottom: 2px solid #00A1F1;padding-bottom: 15px; margin-top: 2%">Critère</p>
+                                <div class="row">
+                                    {{--  {{ dd($annonce->sub_category_value) }}  --}}
+                                    @foreach ($annonce->sub_category_value  as $sub_category_value )
+                                        <div class="col-md-6">
+                                            @if($sub_category_value->sub_category->sub_category_list->count() > 0)
+                                                <p>
+                                                    <span style="font-weight: bold;text-decoration: underline; white-space: normal">{{ $sub_category_value->sub_category->libelle }} :</span>
+                                                    <br>{{ $sub_category_value->sub_category->sub_category_list->where("id","=",$sub_category_value->value)->first()->value }}
+                                                </p>
+                                            @else
+                                            <p>
+                                                <span style="font-weight: bold;text-decoration: underline; white-space: normal">{{ $sub_category_value->sub_category->libelle }} :</span>
+                                                <br>{{ $sub_category_value->value }}
+                                            </p>
+                                            @endif
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
                             <div style="border-top: 2px solid #00A1F1;border-bottom: 2px solid #00A1F1; padding-bottom: 10px; padding-top: 10px;margin-bottom: 20px">
                                 <span>Vendue par :</span> <span style="color: #00A1F1; font-weight: bold; font-size: 0.8em"> &nbsp; {{$annonce->user->name}}</span> <br>
                                 <span>Contact :</span>  <span style="color: #00A1F1; font-weight: bold; font-size: 0.8em">&nbsp; {{$annonce->phone}}</span><br>

@@ -209,13 +209,28 @@
 
                     for (var i = 0; i < data.length; i++) {
                         var required = "";
+                        var input = "";
                         if(data[i].is_obligatoir==1){
                             required = "required";
                         }
-                        var input = '<div class="col-md-6">'
-                                    +'<label for="'+data[i].name+'">'+data[i].libelle+'</label>'
-                                    +'<input class="inputtext" type="text" name="' + data[i].name +'" id="'+data[i].name+'" placeholder="'+data[i].placeholder+'" '+required+'>'
-                                    +'</div>'
+                        if(data[i].list.length > 0){
+                            input = '<div class="col-md-6">'
+                                +'<label for="'+data[i].name+'">'+data[i].libelle+'</label>'
+                                +'<select class="inputselect" name="'+data[i].name+'" id="'+data[i].name+'">';
+
+                            data[i].list.forEach(function(item){
+                                input = input + '<option value="'+item.id+'">'+item.value+'</option>'
+                            })
+
+                            input = input + '</select>'+'</div>'
+                            console.log(input);
+                        }else{
+                            input = '<div class="col-md-6">'
+                                +'<label for="'+data[i].name+'">'+data[i].libelle+'</label>'
+                                +'<input class="inputtext" type="text" name="' + data[i].name +'" id="'+data[i].name+'" placeholder="'+data[i].placeholder+'" '+required+'>'
+                                +'</div>'
+
+                        }
                         $subcategory_div.append(input);
                     }
                 }

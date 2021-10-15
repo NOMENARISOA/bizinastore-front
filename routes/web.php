@@ -95,3 +95,4 @@ Route::get('/{directory}/{filename}', function ($directory,$filename)
 //API
 Route::get("api/subcategory/{category}", [App\Http\Controllers\APIController::class, 'getSubCategory'])->name('api.subcategory');
 Route::get("api/autocomplete/search", [App\Http\Controllers\APIController::class, 'autocompleteSearch'])->name('api.autocompleteSearch');
+Route::get("api/subcategory_list/search/{query}", [App\Http\Controllers\APIController::class, 'getSubcategoryValue'])->name('api.getSubcategoryValue');

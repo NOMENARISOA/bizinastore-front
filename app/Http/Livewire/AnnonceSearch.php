@@ -10,11 +10,15 @@ use App\Models\region;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
+use SebastianBergmann\Environment\Console;
 
 class AnnonceSearch extends Component
 {
     use WithPagination;
-
+    public $sub_menu_query = array();
+    public $sub_query_temp = array();
+    public $prix_max ="";
+    public $prix_min ="";
     public $etat= null;
     public $category =0;
     public $search = null;
@@ -33,6 +37,10 @@ class AnnonceSearch extends Component
 
     }
 
+    public function clear_prix(){
+        $this->prix_max = 0;
+        $this->prix_min = 0;
+    }
     public function mount(){
         if(!empty(request()->query())){
             $this->type_annonce  = request()->query('type_annonce');
@@ -49,6 +57,8 @@ class AnnonceSearch extends Component
         $this->category = $this->category_query;
         $this->type_annonce = $this->type_annonce_query;
         $this->search = $this->search_query;
+
+         dd($this->sub_menu_query);
     }
 
     public function select_type_annonce($type){

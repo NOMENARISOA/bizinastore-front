@@ -1,4 +1,38 @@
 <div>
+
+    <style>
+        .badge_search{
+            margin-top: 10px;
+            font-size: 0.8em;
+            margin-right: 5px;
+            padding: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+            background-color: #E70001;
+            cursor: pointer;
+            border-radius: 20px;
+            color: white;
+            text-align: center;
+            font-weight: 300;
+            width: max-content;
+            min-width: 50px;
+        }
+        .badge_search:hover{
+            background-color: #82bd01;
+        }
+        .dropdown-menu{
+            padding-right: 10px;
+            padding-left: 10px;
+        }
+        .btn_valider{
+            margin-top: 10px;
+            font-weight: 100;
+            background-color: #00a1f1;
+            color: white;
+            box-shadow: none;
+            border: none;
+        }
+    </style>
     <div class="row justify-content-center" style="padding-top: 2%;margin-bottom: 2%">
         <div class="shadow col-md-10 col-lg-6 col-10 form-search"  style="background-color: white;padding-left: 2%;padding-top: 1%;;padding-bottom: 0.2%">
             <div class="row">
@@ -68,7 +102,63 @@
                         </select>
                     </div>
                 </div>
+                <div class="col-md-12">
+                    <div class="row" >
+                        @if($category_query != 0)
+                            <span class="badge_search  dropdown-toggle" id="dropdown-prix" data-toggle="dropdown">Prix</span>
+                            <div class="dropdown-menu" aria-labelledby="dropdown-prix" style="width: max-content">
+                                <div class="row justify-content-between" style="padding-right: 10px;padding-left:10px" >
+                                    <div class="col-md-6">
+                                        <input type="text" name="prix_min"   id="prix_min"  wire:model.defer="prix_min" value="2" placeholder="Prix minimum">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="text" name="prix_max"  wire:model.defer ="prix_max" value="3" placeholder="Prix maximum">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn_valider" wire:click="clear_prix"  style="background-color: #E70001 !important" >Effacer</button>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button class="btn_valider" > Valider </button>
+                                    </div>
+                                </div>
+                            </div>
+                            @foreach (App\Models\sub_category::where("category_id",$category_query)->get() as $sub_category )
+                                <span class="badge_search dropdown-toggle" id="dropdown-{{ $sub_category->name }}" data-toggle="dropdown" >{{ $sub_category->libelle }}</span>
+                                @if($sub_category->sub_category_list->count() > 0)
+                                    <div class="dropdown-menu" aria-labelledby="dropdown-{{ $sub_category->name }}" style="width: max-content" >
+                                        <input type="text" id="{{ $sub_category->name }}"  name="{{ $sub_category->name }}"   placeholder="Recherche une valeur">
+                                        <div id="{{ $sub_category->name }}-list">
+                                            @foreach ($sub_category->sub_category_list as $list)
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="checkbox" value="{{ $list->id }}" id="check-{{ $list->id }}">
+                                                <label class="form-check-label" for="check-{{ $list->id }}">
+                                                    {{ $list->value }}
+                                                </label>
+                                            </div>
+                                        @endforeach
+                                        </div>
+                                    </div>
+                                @endif
+                                <script>
+                                    $('#{{ $sub_category->name }}').keyup(function() {
+                                        query = $('#{{ $sub_category->name }}').val();
+                                        $.ajax({
+                                            type: 'GET',
+                                            url: '{{ url("/") }}/api/subcategory_list/search/' + query
+                                            success: function(data) {
+                                                console.log(data)
+                                            }
+                                        });
+
+                                     });
+                                </script>
+                            @endforeach
+
+                        @endif
+                    </div>
+                </div>
             </div>
+
             <div class="text-center row justify-content-center">
                 <div class="col-md-2 col-6" style="background-color: #00a1f1;border-radius: 50px; position: absolute; margin-top: -1%">
                     <button class="title-deposer" wire:click="search" style="background-color: transparent;border: none; color:white;padding :4px; font-size: 1.2em"> Rechercher</button>
@@ -77,6 +167,7 @@
         </div>
     </div>
 
+    {{--  @dump($sub_menu_query)  --}}
     <style>
         .list-annonce .annonce:hover{
             color:black;

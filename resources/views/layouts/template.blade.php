@@ -46,6 +46,8 @@
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
     <link rel="stylesheet" type="text/css" href="{{ asset('https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css') }}">
     <script type="text/javascript" charset="utf8" src="{{ asset('https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js') }}"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!--notification js -->
     <link rel="stylesheet" href="{{asset('assets/plugins/notifications/css/lobibox.min.css')}}"/>
     <script src="{{asset('assets/plugins/notifications/js/lobibox.min.js')}}"></script>

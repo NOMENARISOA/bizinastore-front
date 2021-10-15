@@ -65,7 +65,7 @@ class annonce extends Model
     }
 
     public function sub_category_value(){
-        return $this->hasMany('App\Models\annonce_sub_category_value','annonce_id');
+        return $this->hasMany('App\Models\annonce_sub_categorie_value','annonce_id');
     }
 
 
