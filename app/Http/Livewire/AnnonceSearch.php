@@ -60,7 +60,11 @@ class AnnonceSearch extends Component
 
          dd($this->sub_menu_query);
     }
-
+/*
+    public function addCheckBoxySubcategoryValue($sub_category_id,$sub_category_value_id){
+        $this->sub_query_temp += [$sub_category_id => $sub_category_value_id];
+    }
+*/
     public function select_type_annonce($type){
         if($type == 1 ){
             $this->type_annonce_query = 1;

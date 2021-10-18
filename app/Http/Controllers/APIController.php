@@ -36,8 +36,8 @@ class APIController extends Controller
 
         return new JsonResponse($data,Response::HTTP_OK);
     }
-    public function getSubcategoryValue($query){
-        $sub_category_list = sub_category_list::where("value","like","%".$query."%")->get();
+    public function getSubcategoryValue(Request $request){
+        $sub_category_list = sub_category_list::where("value","like","%".$request->get("query")."%")->get();
 
         $data = [];
         foreach($sub_category_list as $list){

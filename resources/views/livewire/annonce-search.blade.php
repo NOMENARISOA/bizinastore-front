@@ -1,4 +1,23 @@
 <div>
+    <style>
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f6f6f6;
+        min-width: 230px;
+        overflow: auto;
+        border: 1px solid #ddd;
+        z-index: 1;
+      }
+
+      .dropdown-content .dropdown-list {
+        color: black;
+        padding: 12px 16px;
+        text-decoration: none;
+        display: block;
+      }
+      .show {display: block;}
+    </style>
 
     <style>
         .badge_search{
@@ -33,6 +52,7 @@
             border: none;
         }
     </style>
+    {{--  @dump($sub_query_temp)  --}}
     <div class="row justify-content-center" style="padding-top: 2%;margin-bottom: 2%">
         <div class="shadow col-md-10 col-lg-6 col-10 form-search"  style="background-color: white;padding-left: 2%;padding-top: 1%;;padding-bottom: 0.2%">
             <div class="row">
@@ -102,6 +122,7 @@
                         </select>
                     </div>
                 </div>
+
                 <div class="col-md-12">
                     <div class="row" >
                         @if($category_query != 0)
@@ -122,33 +143,55 @@
                                     </div>
                                 </div>
                             </div>
+
                             @foreach (App\Models\sub_category::where("category_id",$category_query)->get() as $sub_category )
-                                <span class="badge_search dropdown-toggle" id="dropdown-{{ $sub_category->name }}" data-toggle="dropdown" >{{ $sub_category->libelle }}</span>
+                                <span class="badge_search dropdown-toggle" onclick="showDropdown({{ $sub_category->id }})">{{ $sub_category->libelle }}</span>
                                 @if($sub_category->sub_category_list->count() > 0)
-                                    <div class="dropdown-menu" aria-labelledby="dropdown-{{ $sub_category->name }}" style="width: max-content" >
-                                        <input type="text" id="{{ $sub_category->name }}"  name="{{ $sub_category->name }}"   placeholder="Recherche une valeur">
-                                        <div id="{{ $sub_category->name }}-list">
+                                    <div class="dropdown-content" id="dropdown-{{ $sub_category->id }}" style="width: max-content" >
+                                        <input type="text" id="input-{{ $sub_category->name }}"  name="{{ $sub_category->name }}"   placeholder="Recherche une valeur">
+                                        <div class="dropdown-list" id="{{ $sub_category->name }}-list">
                                             @foreach ($sub_category->sub_category_list as $list)
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" value="{{ $list->id }}" id="check-{{ $list->id }}">
-                                                <label class="form-check-label" for="check-{{ $list->id }}">
-                                                    {{ $list->value }}
-                                                </label>
-                                            </div>
-                                        @endforeach
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="{{ $list->id }}" onclick="addCheckBoxySubcategoryValue({{ $sub_category->id }},{{ $list->id }},{{ $sub_category->name }})"  id="check-{{ $list->id }}">
+                                                    <label class="form-check-label" style="line-height: 2;" for="check-{{ $list->id }}" onclick="addCheckBoxySubcategoryValue({{ $sub_category->id }},{{ $list->id }},{{ $sub_category->name }})">
+                                                        {{ $list->value }}
+                                                    </label>
+                                                </div>
+                                            @endforeach
                                         </div>
                                     </div>
                                 @endif
+
                                 <script>
+
                                     $('#{{ $sub_category->name }}').keyup(function() {
-                                        query = $('#{{ $sub_category->name }}').val();
-                                        $.ajax({
-                                            type: 'GET',
-                                            url: '{{ url("/") }}/api/subcategory_list/search/' + query
-                                            success: function(data) {
-                                                console.log(data)
-                                            }
-                                        });
+
+                                        var value = $('#{{ $sub_category->name }}').val();
+                                        console.log(value.length);
+                                        if(value.length  > 1){
+                                            $.ajax({
+                                                url: '{{ url("/") }}/api/subcategory_list/search/value',
+                                                type: 'POST',
+                                                data:{query:value,_token: "{{ csrf_token() }}"},
+                                                success: function(data) {
+                                                    var $container = $('#{{ $sub_category->name }}-list');
+                                                    if(data.length >  0 ){
+                                                        $container.empty();
+                                                        var input = "";
+                                                        data.forEach(function(item){
+                                                            input = '<div class="form-check">'
+                                                                + '<input class="form-check-input" type="checkbox" value="'+ item.id +'" id="check-'+ item.id +'">'
+                                                                +'<label class="form-check-label" style="line-height: 2;" for="check-'+ item.id +'">'
+                                                                + item.name
+                                                                +'</label>'
+                                                                +'</div>';
+                                                             $container.append(input);
+                                                        });
+                                                    }
+                                                }
+                                            });
+                                        }
+
 
                                      });
                                 </script>
@@ -167,7 +210,27 @@
         </div>
     </div>
 
-    {{--  @dump($sub_menu_query)  --}}
+    <script>
+        function showDropdown(dropdown_id) {
+            dropdown_id = "dropdown-"+ dropdown_id
+            document.getElementById(dropdown_id).classList.toggle("show");
+        }
+    </script>
+    function filterFunction() {
+        var input, filter, ul, li, a, i;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        div = document.getElementById("myDropdown");
+        a = div.getElementsByTagName("a");
+        for (i = 0; i < a.length; i++) {
+          txtValue = a[i].textContent || a[i].innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            a[i].style.display = "";
+          } else {
+            a[i].style.display = "none";
+          }
+        }
+      }
     <style>
         .list-annonce .annonce:hover{
             color:black;
@@ -303,6 +366,14 @@
             </div>
         </div>
     </div>
+    <script>
+        function addCheckBoxySubcategoryValue(subcategory_id,subcategory_value_id,dropdown){
+           // alert("ok")
+           console.log(dropdown)
+           $(this).parent().toggleClass('open');
+           @this.set('sub_query_temp', new Array(subcategory_value_id));
+        }
+    </script>
     <script>
         $('#signalement').on('show.bs.modal', function (event) {
 
