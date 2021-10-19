@@ -12,7 +12,7 @@
         color: white !important;
         border-radius: 50px;
         font-weight: 100!important;
-        font-size: 1.2em !important
+        font-size: 0.9em !important
      }
      .form-search{
          border-radius: 20px

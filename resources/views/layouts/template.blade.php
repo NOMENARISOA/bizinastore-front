@@ -26,6 +26,11 @@
             font-family: segouil;
             src: url('{{asset('assets/fonts/segoeuil.ttf')}}');
             }
+
+        body{
+            font-family: segouil;
+            font-weight: 100;
+        }
     </style>
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/plugins/animate.css')}}">
@@ -203,6 +208,13 @@
         <!--Header Section End-->
 
         <div class="overlay"></div>
+        <div id="carouselExampleCaptions" style="max-height: 300px" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <img style="max-height: 300px !important;" src="{{asset('assets/images/background.jpg')}}" class="d-block w-100" alt="">
+              </div>
+            </div>
+        </div>
         <!--Overlay-->
         {{-- CONTAINTE MAIN --}}
         @yield('content')
@@ -217,7 +229,7 @@
                         <div class="col-lg-2 col-md-2 col-12" style="padding-left: 0px;">
                             <div class="footer-widget " style="margin-top: 0px">
                                 <div>
-                                    <a class="footer-logo" style="width: 30%;margin-bottom: 0px;" href="#"><img src="{{asset('assets/images/logo_footer.jpg')}}" alt=""></a>
+                                    <a class="footer-logo" style="width: 36%;margin-bottom: 0px;" href="#"><img src="{{asset('assets/images/logo_footer.jpg')}}" alt=""></a>
                                 </div>
                             </div>
                             <!--Footer Widget End-->

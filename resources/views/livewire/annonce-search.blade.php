@@ -1,25 +1,5 @@
 <div>
     <style>
-    .dropdown-content {
-        display: none;
-        position: absolute;
-        background-color: #f6f6f6;
-        min-width: 230px;
-        overflow: auto;
-        border: 1px solid #ddd;
-        z-index: 1;
-      }
-
-      .dropdown-content .dropdown-list {
-        color: black;
-        padding: 12px 16px;
-        text-decoration: none;
-        display: block;
-      }
-      .show {display: block;}
-    </style>
-
-    <style>
         .badge_search{
             margin-top: 10px;
             font-size: 0.8em;
@@ -52,6 +32,59 @@
             border: none;
         }
     </style>
+    <style>
+        .dropdown-custom-menu{
+            background-color: white;
+            margin-top: 4%;
+            position: absolute;
+            display: none;
+            z-index: 99;
+            max-height: 150px;
+            overflow: auto;
+            max-width: max-content;
+            box-shadow: 2px 2px 2px rgba(0, 161, 241, 0.719)
+        }
+        .dropdown-custom-menu::-webkit-scrollbar {
+            width: 3px;
+        }
+        .dropdown-custom-menu::-webkit-scrollbar-track {
+            background: white;
+          }
+          .dropdown-custom-menu::-webkit-scrollbar-thumb {
+            background: #82bd01;
+          }
+        .show {
+            display: block !important;
+        }
+    </style>
+    <style>
+        .banner_result_count{
+            font-family: segouil !important;
+            font-weight: bold !important;
+            font-size: 0.9em;
+            color: #E70001;
+        }
+    </style>
+    <script >
+        $(document).on("click",function (event){
+            var $trigger = $(".dropdown-custom-menu");
+         //   $trigger.data('click')
+            var value_clicked = false;
+            if($(event.target).parent().hasClass("dropdown-custom-menu")){
+                value_clicked = true ;
+            }
+            if($(event.target).parent().parent().parent().hasClass("dropdown-custom-menu")){
+                value_clicked = true ;
+            }
+            if($(event.target).parent().parent().hasClass("dropdown-custom-menu")){
+                value_clicked = true ;
+            }
+            if($trigger.hasClass("show") && value_clicked == false){
+                console.log($trigger.hasClass("show"));
+                $trigger.removeClass("show");
+            }
+        })
+    </script>
     {{--  @dump($sub_query_temp)  --}}
     <div class="row justify-content-center" style="padding-top: 2%;margin-bottom: 2%">
         <div class="shadow col-md-10 col-lg-6 col-10 form-search"  style="background-color: white;padding-left: 2%;padding-top: 1%;;padding-bottom: 0.2%">
@@ -145,22 +178,26 @@
                             </div>
 
                             @foreach (App\Models\sub_category::where("category_id",$category_query)->get() as $sub_category )
-                                <span class="badge_search dropdown-toggle" onclick="showDropdown({{ $sub_category->id }})">{{ $sub_category->libelle }}</span>
+                                <span class="badge_search dropdown-toggle" data-name="{{$sub_category->name}}" id="btn-span-{{$sub_category->id}}"  onclick="showDropdown({{ $sub_category->id }})">{{ $sub_category->libelle }}</span>
                                 @if($sub_category->sub_category_list->count() > 0)
-                                    <div class="dropdown-content" id="dropdown-{{ $sub_category->id }}" style="width: max-content" >
-                                        <input type="text" id="input-{{ $sub_category->name }}"  name="{{ $sub_category->name }}"   placeholder="Recherche une valeur">
-                                        <div class="dropdown-list" id="{{ $sub_category->name }}-list">
+                                    <div class="dropdown-custom-menu"  id="dropdown-{{ $sub_category->id }}"  >
+                                        <input type="text" id="{{ $sub_category->name }}"  name="{{ $sub_category->name }}"   placeholder="Recherche une valeur">
+                                        <div class="dropdown-list" id="{{ $sub_category->id }}-list">
                                             @foreach ($sub_category->sub_category_list as $list)
                                                 <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="{{ $list->id }}" onclick="addCheckBoxySubcategoryValue({{ $sub_category->id }},{{ $list->id }},{{ $sub_category->name }})"  id="check-{{ $list->id }}">
-                                                    <label class="form-check-label" style="line-height: 2;" for="check-{{ $list->id }}" onclick="addCheckBoxySubcategoryValue({{ $sub_category->id }},{{ $list->id }},{{ $sub_category->name }})">
+                                                    <input class="form-check-input" type="checkbox" onclick="addValueCheckBox({{ $list->id }},{{ $sub_category->id }})" value="{{ $list->value }}"   id="check-{{ $list->id }}">
+                                                    <label class="form-check-label" style="line-height: 2;" for="check-{{ $list->id }}">
                                                         {{ $list->value }}
                                                     </label>
                                                 </div>
                                             @endforeach
                                         </div>
+                                        <div class="drop">
+
+                                        </div>
                                     </div>
                                 @endif
+
 
                                 <script>
 
@@ -168,29 +205,29 @@
 
                                         var value = $('#{{ $sub_category->name }}').val();
                                         console.log(value.length);
-                                        if(value.length  > 1){
-                                            $.ajax({
-                                                url: '{{ url("/") }}/api/subcategory_list/search/value',
-                                                type: 'POST',
-                                                data:{query:value,_token: "{{ csrf_token() }}"},
-                                                success: function(data) {
-                                                    var $container = $('#{{ $sub_category->name }}-list');
-                                                    if(data.length >  0 ){
-                                                        $container.empty();
-                                                        var input = "";
-                                                        data.forEach(function(item){
-                                                            input = '<div class="form-check">'
-                                                                + '<input class="form-check-input" type="checkbox" value="'+ item.id +'" id="check-'+ item.id +'">'
-                                                                +'<label class="form-check-label" style="line-height: 2;" for="check-'+ item.id +'">'
-                                                                + item.name
-                                                                +'</label>'
-                                                                +'</div>';
-                                                             $container.append(input);
-                                                        });
-                                                    }
+                                        $.ajax({
+                                            url: '{{ url("/") }}/api/subcategory_list/search/value',
+                                            type: 'POST',
+                                            data:{query:value,_token: "{{ csrf_token() }}"},
+                                            success: function(data) {
+                                                console.log(data)
+                                                var $container = $('#{{ $sub_category->id }}-list');
+                                                if(data.length >  0 ){
+
+                                                    $container.empty();
+                                                    var input = "";
+                                                    data.forEach(function(item){
+                                                        input = '<div class="form-check">'
+                                                            + '<input class="form-check-input" type="checkbox" value="'+ item.id +'" id="check-'+ item.id +'">'
+                                                            +'<label class="form-check-label" style="line-height: 2;" for="check-'+ item.id +'">'
+                                                            + item.name
+                                                            +'</label>'
+                                                            +'</div>';
+                                                         $container.append(input);
+                                                    });
                                                 }
-                                            });
-                                        }
+                                            }
+                                        });
 
 
                                      });
@@ -204,33 +241,12 @@
 
             <div class="text-center row justify-content-center">
                 <div class="col-md-2 col-6" style="background-color: #00a1f1;border-radius: 50px; position: absolute; margin-top: -1%">
-                    <button class="title-deposer" wire:click="search" style="background-color: transparent;border: none; color:white;padding :4px; font-size: 1.2em"> Rechercher</button>
+                    <button class="title-deposer" wire:click="search" style="background-color: transparent;border: none; color:white;padding :4px; font-size: 0.9em"> Rechercher ({{ $annonces->count() }} résultats)</button>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script>
-        function showDropdown(dropdown_id) {
-            dropdown_id = "dropdown-"+ dropdown_id
-            document.getElementById(dropdown_id).classList.toggle("show");
-        }
-    </script>
-    function filterFunction() {
-        var input, filter, ul, li, a, i;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        div = document.getElementById("myDropdown");
-        a = div.getElementsByTagName("a");
-        for (i = 0; i < a.length; i++) {
-          txtValue = a[i].textContent || a[i].innerText;
-          if (txtValue.toUpperCase().indexOf(filter) > -1) {
-            a[i].style.display = "";
-          } else {
-            a[i].style.display = "none";
-          }
-        }
-      }
+    </div>
     <style>
         .list-annonce .annonce:hover{
             color:black;
@@ -246,10 +262,38 @@
             }
         }
     </style>
+    <div class="row justify-content-center ">
+        <div class="col-md-10 col-lg-6 col-10">
+            <div class="row " >
+                <div class="col-md-3 banner_result_count">
+                    Annonces : {{ $annonces->count() }}
+                </div>
+                <div class="col-md-3">
+                    <div class="form-check">
+                        <input class="form-check-input" id="particulier" type="checkbox">
+                        <label class="form-check-label banner_result_count" style="line-height: 1.6;" for="particulier">
+                            Particuliers : {{ $annonces->count() }}
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-check">
+                        <input class="form-check-input" id="professionnel" type="checkbox">
+                        <label class="form-check-label banner_result_count" style="line-height: 1.6;" for="professionnel">
+                            Professionnels : {{ $annonces->count() }}
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
     <div class="row justify-content-center list-annonce" style="margin-bottom: 2%">
         <div class="col-md-10 col-lg-10 col-10">
+
             <div class="row justify-content-center">
                 <div class="col-md-8">
+
                     @foreach ( $annonces as $annonce )
                         <div class="shadow annonce form-search" style="background-color: white;margin-top:2%;padding-left: 0px;padding-right: 0px;">
                             <div class="row">
@@ -367,11 +411,67 @@
         </div>
     </div>
     <script>
-        function addCheckBoxySubcategoryValue(subcategory_id,subcategory_value_id,dropdown){
-           // alert("ok")
-           console.log(dropdown)
-           $(this).parent().toggleClass('open');
-           @this.set('sub_query_temp', new Array(subcategory_value_id));
+        function addValueCheckBox(id,subcategory_id_btn){
+            $target_btn = $('#btn-span-'+subcategory_id_btn);
+            $target_list = $('#'+subcategory_id_btn+"-list");
+            $target_btn.text("");
+            i = 0;
+            j = 0;
+            text_of_btn = "";
+            $target_list.children().each(function($item){
+
+                if($(this).children()[0].checked == true){
+                    if(i<3){
+                        text_of_btn += $(this).children()[0].value +","
+                        i++
+                    }else{
+                        j++
+                    }
+
+                }
+
+                console.log($(this).children()[0].checked)
+            })
+
+            if(text_of_btn == ""){
+                $target_btn.text($target_btn.data("name"));
+            }else{
+                if(j == 0){
+                    $target_btn.text(text_of_btn.slice(0,-1));
+                }else{
+                    $target_btn.text(text_of_btn.slice(0,-1) + "+"+j);
+                }
+
+            }
+            console.log(text_of_btn)
+/*
+            name_check_box = "check-"+id;
+            $target_checkbox = $('#'+name_check_box);
+            $target_btn = $('#btn-span-'+subcategory_id_btn);
+            txt_btn = $target_btn.text();
+            if($target_checkbox.checked=true){
+
+                val = $target_checkbox.val();
+
+                txt_btn += val;
+
+            }else{
+                val = $target_checkbox.val();
+                console.log(ato)
+                list_selected = list_selected.filter(function(ele){return ele != val})
+            }
+            $target_btn.text(txt_btn);*/
+        }
+    </script>
+    <script>
+        function showDropdown(id){
+            name = "dropdown-"+id;
+            if($('#'+name).hasClass('show')){
+                $('#'+name).removeClass('show');
+            }else{
+                $('#'+name).addClass('show');
+            }
+            window.event.cancelBubble = true
         }
     </script>
     <script>

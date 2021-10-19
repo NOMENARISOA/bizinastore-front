@@ -12,7 +12,7 @@
         color: white !important;
         border-radius: 50px;
         font-weight: 100!important;
-        font-size: 1.2em !important
+        font-size: 0.9em !important
      }
      .form-search{
          border-radius: 20px
@@ -39,13 +39,7 @@
         background: url('http://localhost:8000/assets/icon/icon-menu.png') no-repeat left;
      }
  </style>
-<div id="carouselExampleCaptions" style="max-height: 300px" class="carousel slide" data-bs-ride="carousel">
-    <div class="carousel-inner">
-      <div class="carousel-item active">
-        <img style="max-height: 300px !important;" src="{{asset('assets/images/background.jpg')}}" class="d-block w-100" alt="">
-      </div>
-    </div>
-</div>
+
 
 <div class="row justify-content-center" style="padding-top: 2%">
     <div class="col-md-10 col-lg-6 shadow form-search"  style="background-color: white; padding :2%">
