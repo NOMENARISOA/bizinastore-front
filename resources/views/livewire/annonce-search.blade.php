@@ -7,7 +7,7 @@
             padding: 5px;
             padding-left: 10px;
             padding-right: 10px;
-            background-color: #E70001;
+            background-color: #82bd01;
             cursor: pointer;
             border-radius: 20px;
             color: white;
@@ -17,7 +17,7 @@
             min-width: 50px;
         }
         .badge_search:hover{
-            background-color: #82bd01;
+            background-color: #FFBB02;
         }
         .dropdown-menu{
             padding-right: 10px;
@@ -58,11 +58,39 @@
         }
     </style>
     <style>
+        input[type=number] {
+            -moz-appearance: textfield;
+          }
+          input::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+          }
         .banner_result_count{
             font-family: segouil !important;
-            font-weight: bold !important;
+            font-weight: 100 !important;
             font-size: 0.9em;
-            color: #E70001;
+            color: white;
+            background-color:  #82bd01;
+            padding-left: 8px;
+            padding-right: 8px;
+            border-radius: 30px;
+            width: 100%;
+            text-align: center;
+            display: inline-block;
+
+        }
+
+        .btn_valide_subactegory{
+            font-size: 0.6em;
+            font-weight: 100;
+            padding-left: 10px;
+            padding-right: 10px;
+            line-height: 2px;
+            max-height: 30px;
+            margin-bottom: 10px;
+            margin-left: 10px;
+            background-color: #FFBB02;
+            border: none;
         }
     </style>
     <script >
@@ -178,27 +206,36 @@
                             </div>
 
                             @foreach (App\Models\sub_category::where("category_id",$category_query)->get() as $sub_category )
-                                <span class="badge_search dropdown-toggle" data-name="{{$sub_category->name}}" id="btn-span-{{$sub_category->id}}"  onclick="showDropdown({{ $sub_category->id }})">{{ $sub_category->libelle }}</span>
-                                @if($sub_category->sub_category_list->count() > 0)
-                                    <div class="dropdown-custom-menu"  id="dropdown-{{ $sub_category->id }}"  >
-                                        <input type="text" id="{{ $sub_category->name }}"  name="{{ $sub_category->name }}"   placeholder="Recherche une valeur">
-                                        <div class="dropdown-list" id="{{ $sub_category->id }}-list">
-                                            @foreach ($sub_category->sub_category_list as $list)
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" onclick="addValueCheckBox({{ $list->id }},{{ $sub_category->id }})" value="{{ $list->value }}"   id="check-{{ $list->id }}">
-                                                    <label class="form-check-label" style="line-height: 2;" for="check-{{ $list->id }}">
-                                                        {{ $list->value }}
-                                                    </label>
+                                @if($sub_category->type != 2)
+                                    <span class="badge_search dropdown-toggle" data-name="{{$sub_category->libelle}}" id="btn-span-{{$sub_category->id}}"  onclick="showDropdown({{ $sub_category->id }})">{{ $sub_category->libelle }}</span>
+                                    @if($sub_category->sub_category_list->count() > 0)
+                                        <div class="dropdown-custom-menu"  id="dropdown-{{ $sub_category->id }}"  >
+                                            <input type="text" id="{{ $sub_category->name }}"  name="{{ $sub_category->name }}"   placeholder="Recherche une valeur">
+                                            <div class="dropdown-list" id="{{ $sub_category->id }}-list">
+                                                @foreach ($sub_category->sub_category_list as $list)
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" onclick="addValueCheckBox({{ $list->id }},{{ $sub_category->id }})" value="{{ $list->value }}"   id="check-{{ $list->id }}">
+                                                        <label class="form-check-label" style="line-height: 2;" for="check-{{ $list->id }}">
+                                                            {{ $list->value }}
+                                                        </label>
+                                                    </div>
+                                                @endforeach
+                                            </div>
+                                        </div>
+                                    @else
+                                        <div class="dropdown-custom-menu"  id="dropdown-{{ $sub_category->id }}">
+                                            <div class="row justify-content-between" style="padding: 10px" >
+                                                <div class="col-md-6">
+                                                    <input type="number" id="{{ $sub_category->id }}-min" name="{{ $sub_category->id }}.min"  wire:model.defer="sub_query_temp.{{ $sub_category->id }}.min"  placeholder="Valeur minimum">
                                                 </div>
-                                            @endforeach
+                                                <div class="col-md-6">
+                                                    <input type="number" id="{{ $sub_category->id }}-max" name="{{ $sub_category->id }}.min"  wire:model.defer ="sub_query_temp.{{ $sub_category->id }}.max"  placeholder="Valeur maximum">
+                                                </div>
+                                            </div>
+                                            <button class="btn btn-success btn_valide_subactegory" onclick="btn_valider_subcategory({{ $sub_category->id }})">Valider</button>
                                         </div>
-                                        <div class="drop">
-
-                                        </div>
-                                    </div>
+                                    @endif
                                 @endif
-
-
                                 <script>
 
                                     $('#{{ $sub_category->name }}').keyup(function() {
@@ -263,25 +300,30 @@
         }
     </style>
     <div class="row justify-content-center ">
-        <div class="col-md-10 col-lg-6 col-10">
+        <div class="col-md-10 col-lg-6 col-10 ">
             <div class="row " >
-                <div class="col-md-3 banner_result_count">
-                    Annonces : {{ $annonces->count() }}
+                <div class="col-md-3 ">
+                    <span class="banner_result_count">Annonces : {{ $annonces->count() }}</span>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-check">
-                        <input class="form-check-input" id="particulier" type="checkbox">
-                        <label class="form-check-label banner_result_count" style="line-height: 1.6;" for="particulier">
-                            Particuliers : {{ $annonces->count() }}
-                        </label>
+                    <div class="banner_result_count">
+                        <div class="form-check ">
+                            <input class="form-check-input" id="particulier" type="checkbox">
+                            <label class="form-check-label " style="line-height: 1.6;" for="particulier">
+                                Particuliers : {{ $annonces->count() }}
+                            </label>
+                        </div>
                     </div>
+
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-3">
+                    <div class="banner_result_count">
                     <div class="form-check">
                         <input class="form-check-input" id="professionnel" type="checkbox">
-                        <label class="form-check-label banner_result_count" style="line-height: 1.6;" for="professionnel">
+                        <label class="form-check-label " style="line-height: 1.6;" for="professionnel">
                             Professionnels : {{ $annonces->count() }}
                         </label>
+                    </div>
                     </div>
                 </div>
 
@@ -444,23 +486,37 @@
 
             }
             console.log(text_of_btn)
-/*
-            name_check_box = "check-"+id;
-            $target_checkbox = $('#'+name_check_box);
-            $target_btn = $('#btn-span-'+subcategory_id_btn);
-            txt_btn = $target_btn.text();
-            if($target_checkbox.checked=true){
+        }
+    </script>
+    <script>
+        function btn_valider_subcategory(id){
+            $target_btn = $('#btn-span-'+id);
+            $target_max = $('#'+id+'-max');
+            $target_min = $('#'+id+'-min');
 
-                val = $target_checkbox.val();
-
-                txt_btn += val;
-
+            if($target_min.val() !="" && $target_max.val()!=""){
+                if($target_min.val()>$target_max.val()){
+                    alert("Valeur minimum doit inférieur à valeur Maximum")
+                }else{
+                    $target_btn.text($target_min.val() +"-" + $target_max.val())
+                    $('#'+"dropdown-"+id).removeClass('show');
+                }
             }else{
-                val = $target_checkbox.val();
-                console.log(ato)
-                list_selected = list_selected.filter(function(ele){return ele != val})
+                if($target_min.val()!=""){
+                    $target_btn.text("> à " + $target_min.val());
+                    $('#'+"dropdown-"+id).removeClass('show');
+                }else{
+                    if($target_max.val()!=""){
+                        $target_btn.text("< à " + $target_max.val());
+                        $('#'+"dropdown-"+id).removeClass('show');
+                    }else{
+                        $target_btn.text($target_btn.data("name"));
+                        $('#'+"dropdown-"+id).removeClass('show');
+                    }
+                }
+
             }
-            $target_btn.text(txt_btn);*/
+
         }
     </script>
     <script>
