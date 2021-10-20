@@ -31,6 +31,7 @@
         color: white !important;
     }
 </style>
+@include('layouts.carousel')
 @livewireStyles
 <script>
     $('#forum').on('shown.bs.modal', function () {

@@ -1,6 +1,7 @@
 @extends('layouts.template')
 
 @section('content')
+@include('layouts.carousel')
 <div class="row justify-content-center" style="padding-top: 2%;margin-bottom: 2%">
     <div class="col-md-10 col-lg-8 shadow form-search"  style="background-color: white; padding :2%">
        <div style="color:#00a1f1;font-weight: bold; font-size: 1.5em">

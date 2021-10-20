@@ -91,13 +91,13 @@
                 </div>
         </form>
         <br>
-        <div class="row">
-            <div class="col-md-6">
-                <a href="{{ route('socialite.redirect', 'google') }}" title="Connexion/Inscription avec Google" class="btn" style="background-color: #f75314;color:white;font-family: segouil;font-weight: 100;padding-left: 2%;padding-right: 2%;font-size: 0.7em" > <i class="fa fa-google"></i> &nbsp Connecter avec Google</a>
+        <div class="row justify-content-center">
+            <div class="col-md-2">
+                <a href="{{ route('socialite.redirect', 'google') }}" title="Connexion/Inscription avec Google" class="btn" style="background-color: #f75314;color:white;font-family: segouil;font-weight: 100;padding-left: 2%;padding-right: 2%;font-size: 0.7em;min-width:50px;border-radius:50%"> <i class="fa fa-google"></i></a>
 
             </div>
-            <div class="col-md-6">
-                <a href="{{ route('socialite.redirect', 'facebook') }}" title="Connexion/Inscription avec Facebook" class="btn" style="background-color: #3b5998;color:white;font-family: segouil;font-weight: 100;padding-left: 2%;padding-right: 2%;font-size: 0.7em"  > <i class="fa fa-facebook"></i> &nbsp Connecter avec Facebook</a>
+            <div class="col-md-2">
+                <a href="{{ route('socialite.redirect', 'facebook') }}" title="Connexion/Inscription avec Facebook" class="btn" style="background-color: #3b5998;color:white;font-family: segouil;font-weight: 100;padding-left: 2%;padding-right: 2%;font-size: 0.7em;min-width:50px;border-radius:50%"> <i class="fa fa-facebook"></i></a>
             </div>
         </div>
     </div>

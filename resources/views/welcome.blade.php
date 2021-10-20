@@ -39,7 +39,7 @@
         background: url('http://localhost:8000/assets/icon/icon-menu.png') no-repeat left;
      }
  </style>
-
+ @include('layouts.carousel')
 
 <div class="row justify-content-center" style="padding-top: 2%">
     <div class="col-md-10 col-lg-6 shadow form-search"  style="background-color: white; padding :2%">

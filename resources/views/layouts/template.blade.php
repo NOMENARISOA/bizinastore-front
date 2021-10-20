@@ -63,6 +63,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('https://cdn.datatables.net/1.10.25/css/jquery.dataTables.css') }}">
     <script type="text/javascript" charset="utf8" src="{{ asset('https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <link rel="stylesheet" href="{{ asset('assets/css/modal-bootstrap.css') }}">
+    <script src="{{ asset('assets/js/modal-bootstrap.js') }}"></script>
     <style>
         .site-main-nav .site-nav ul > li > a {
             font-size: 1em !important;
@@ -134,7 +136,7 @@
 </head>
 
 <body>
-
+    @include('cookieConsent::index')
     <div class="main-wrapper" style="background-color: #ecf0f1 !important">
         <!--Header Section Start-->
         <div class="header-section d-none d-lg-block" style="padding-top: 0px !important; padding-bottom: 0px !important; background-color: #00a1f1">
@@ -179,10 +181,11 @@
                 .leftheader{
                     border-radius: 0px 20px 20px 0px;
                     background-color: #00a1f1;
-                    border:none
+                    border:none;
+                    min-width: 50px;
                 }
             </style>
-            <div class="buttonMenuHeader" style="position: fixed;z-index: 1;font-family: segouil">
+            <div class="buttonMenuHeader" style="position: fixed;z-index: 1;font-family: segouil;">
                 <div>
                     <a href="{{route('annonce.create')}}" class="btn btn-success leftheader" data-toggle="tooltip" title="Déposer une annonce"><i class="icon-plus-circle"></i></a>
                 </div>
@@ -207,20 +210,16 @@
         </div>
         <!--Header Section End-->
 
-        <div class="overlay"></div>
-        <div id="carouselExampleCaptions" style="max-height: 300px" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img style="max-height: 300px !important;" src="{{asset('assets/images/background.jpg')}}" class="d-block w-100" alt="">
-              </div>
-            </div>
-        </div>
+
         <!--Overlay-->
         {{-- CONTAINTE MAIN --}}
-        @yield('content')
+        <div style="min-height: 100vh;">
+            @yield('content')
+        </div>
+
         {{-- CONTAINTE --}}
         <!--Footer Section Start-->
-        <div class="footer-area" style="background-color: #00a1f1;color:white !important">
+        <div class="footer-area" style="background-color: #00a1f1;color:white !important;bottom: 0px;left: 0px;right: 0px;">
             <div class="container-fluid">
                 <div class="footer-widget-area" >
                     <div class="row justify-content-between">

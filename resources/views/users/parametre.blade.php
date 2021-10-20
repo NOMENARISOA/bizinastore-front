@@ -1,7 +1,7 @@
 @extends('users.template')
 
 @section('content-back')
-<div class="row justify-content-center" style="padding: 2%">
+<div class="row justify-content-center" style="padding: 2%;">
     <div class="shadow col-md-8 form-search"  style="background-color: white; padding :2%; border-radius: 20px">
         <div>
             <h4 style="text-decoration: underline ;font-family: segouil">Mon profil</h2>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : ven. 15 oct. 2021 à 15:16
+-- Généré le : mer. 20 oct. 2021 à 16:19
 -- Version du serveur :  5.7.31
 -- Version de PHP : 7.3.21
 
@@ -735,6 +735,7 @@ CREATE TABLE IF NOT EXISTS `sub_categories` (
   `category_id` bigint(20) NOT NULL,
   `is_obligatoir` tinyint(1) DEFAULT '0',
   `placeholder` varchar(191) NOT NULL,
+  `type` int(11) DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -744,15 +745,15 @@ CREATE TABLE IF NOT EXISTS `sub_categories` (
 -- Déchargement des données de la table `sub_categories`
 --
 
-INSERT INTO `sub_categories` (`id`, `name`, `libelle`, `category_id`, `is_obligatoir`, `placeholder`, `created_at`, `updated_at`) VALUES
-(1, 'sub_category_1', 'Sub Catégorye 1', 1, 0, 'Entré Sub Catégorye 1', NULL, NULL),
-(2, 'sub_category_2', 'Sub Catégorye 2', 1, 0, 'Entré Sub Catégorye 2', NULL, NULL),
-(3, 'sub_category_3', 'Sub Catégorye 3', 1, 0, 'Entré Sub Catégorye 3', NULL, NULL),
-(4, 'sub_category_4', 'Sub Catégorye 4', 1, 1, 'Entré Sub Catégorye 4', NULL, NULL),
-(5, 'sub_categoryA_1', 'Sub CatégoryeA 1', 2, 1, 'Entré Sub CatégoryeA 1', NULL, NULL),
-(6, 'sub_categoryA_2', 'Sub CatégoryeA 2', 2, 0, 'Entré Sub CatégoryeA 2', NULL, NULL),
-(7, 'sub_categoryA_3', 'Sub CatégoryeA 3', 2, 0, 'Entré Sub CatégoryeA 3', NULL, NULL),
-(8, 'sub_categoryA_4', 'Sub CatégoryeA 4', 2, 1, 'Entré Sub CatégoryeA 4', NULL, NULL);
+INSERT INTO `sub_categories` (`id`, `name`, `libelle`, `category_id`, `is_obligatoir`, `placeholder`, `type`, `created_at`, `updated_at`) VALUES
+(1, 'sub_category_1', 'Sub Catégorye 1', 1, 0, 'Entré Sub Catégorye 1', 0, NULL, NULL),
+(2, 'sub_category_2', 'Sub Catégorye 2', 1, 0, 'Entré Sub Catégorye 2', 1, NULL, NULL),
+(3, 'sub_category_3', 'Sub Catégorye 3', 1, 0, 'Entré Sub Catégorye 3', 2, NULL, NULL),
+(4, 'sub_category_4', 'Sub Catégorye 4', 1, 1, 'Entré Sub Catégorye 4', 1, NULL, NULL),
+(5, 'sub_categoryA_1', 'Sub CatégoryeA 1', 2, 1, 'Entré Sub CatégoryeA 1', 1, NULL, NULL),
+(6, 'sub_categoryA_2', 'Sub CatégoryeA 2', 2, 0, 'Entré Sub CatégoryeA 2', 1, NULL, NULL),
+(7, 'sub_categoryA_3', 'Sub CatégoryeA 3', 2, 0, 'Entré Sub CatégoryeA 3', 2, NULL, NULL),
+(8, 'sub_categoryA_4', 'Sub CatégoryeA 4', 2, 1, 'Entré Sub CatégoryeA 4', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -768,7 +769,7 @@ CREATE TABLE IF NOT EXISTS `sub_category_lists` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `sub_category_lists`
@@ -776,7 +777,13 @@ CREATE TABLE IF NOT EXISTS `sub_category_lists` (
 
 INSERT INTO `sub_category_lists` (`id`, `sub_category_id`, `value`, `created_at`, `updated_at`) VALUES
 (1, 1, 'Audi', NULL, NULL),
-(2, 1, 'BMW', NULL, NULL);
+(2, 1, 'BMW', NULL, NULL),
+(3, 1, 'Audi 1', NULL, NULL),
+(4, 1, 'BMW 2', NULL, NULL),
+(5, 1, 'Audi 4', NULL, NULL),
+(6, 1, 'Peugeot', NULL, NULL),
+(7, 1, 'Renault', NULL, NULL),
+(8, 1, 'GOLF', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -863,7 +870,7 @@ CREATE TABLE IF NOT EXISTS `view_annonces` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=97 DEFAULT CHARSET=utf8;
+) ENGINE=MyISAM AUTO_INCREMENT=101 DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `view_annonces`
@@ -909,7 +916,11 @@ INSERT INTO `view_annonces` (`id`, `annonce_id`, `created_at`, `updated_at`) VAL
 (59, '20', '2021-10-15 04:27:58', '2021-10-15 04:27:58'),
 (58, '20', '2021-10-15 04:24:22', '2021-10-15 04:24:22'),
 (57, '20', '2021-10-05 10:31:48', '2021-10-05 10:31:48'),
-(96, '20', '2021-10-15 11:24:50', '2021-10-15 11:24:50');
+(96, '20', '2021-10-15 11:24:50', '2021-10-15 11:24:50'),
+(97, '20', '2021-10-18 06:08:09', '2021-10-18 06:08:09'),
+(98, '20', '2021-10-18 11:20:20', '2021-10-18 11:20:20'),
+(99, '20', '2021-10-19 03:23:29', '2021-10-19 03:23:29'),
+(100, '20', '2021-10-19 10:23:06', '2021-10-19 10:23:06');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

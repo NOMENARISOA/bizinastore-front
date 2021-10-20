@@ -469,7 +469,7 @@
                     }else{
                         j++
                     }
-
+            //        @this.set('sub_query_temp.'+subcategory_id_btn, text_of_btn);
                 }
 
                 console.log($(this).children()[0].checked)
@@ -493,20 +493,23 @@
             $target_btn = $('#btn-span-'+id);
             $target_max = $('#'+id+'-max');
             $target_min = $('#'+id+'-min');
-
+            var text_value ="";
             if($target_min.val() !="" && $target_max.val()!=""){
                 if($target_min.val()>$target_max.val()){
                     alert("Valeur minimum doit inférieur à valeur Maximum")
                 }else{
+                    text_value =$target_min.val() +"-" + $target_max.val();
                     $target_btn.text($target_min.val() +"-" + $target_max.val())
                     $('#'+"dropdown-"+id).removeClass('show');
                 }
             }else{
                 if($target_min.val()!=""){
                     $target_btn.text("> à " + $target_min.val());
+                    text_value =$target_min.val()+"-";
                     $('#'+"dropdown-"+id).removeClass('show');
                 }else{
                     if($target_max.val()!=""){
+                        text_value ="-" + $target_max.val();
                         $target_btn.text("< à " + $target_max.val());
                         $('#'+"dropdown-"+id).removeClass('show');
                     }else{
@@ -516,7 +519,7 @@
                 }
 
             }
-
+         //   @this.set('sub_query_temp.'+id, text_value);
         }
     </script>
     <script>

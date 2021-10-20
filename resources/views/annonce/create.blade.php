@@ -82,45 +82,6 @@
                     </select>
                 </div>
             </div>
-            <div id="sub_category" class="row" style="margin-top: 2%" >
-
-            </div>
-            {{-- <div class="row" style="margin-top: 2%" >
-                <div class="col-md-6">
-                    <label for="type_produit">Type du produit</label>
-                    <select class="inputselect" name="type_produit" id="type_produit">
-                        @foreach ($type_produits as $type_produit )
-                            <option value="{{$type_produit->id}}">{{$type_produit->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="marque">Marque</label>
-                    <select class="inputselect" name="marque" id="marque">
-                        @foreach ($marques as $marque )
-                            <option value="{{$marque->id}}">{{$marque->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div>
-            <div class="row" style="margin-top: 2%" >
-                <div class="col-md-6">
-                    <label for="model_produit">Modèle</label>
-                    <select class="inputselect" name="model_produit" id="model_produit">
-                        @foreach ($model_produits as $model_produit )
-                            <option value="{{$model_produit->id}}">{{$model_produit->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="col-md-6">
-                    <label for="etat">Etat</label>
-                    <select class="inputselect" name="etat" id="etat">
-                        @foreach ($etats as $etat )
-                            <option value="{{$etat->id}}">{{$etat->name}}</option>
-                        @endforeach
-                    </select>
-                </div>
-            </div> --}}
             <div class="row" style="margin-top: 2%">
                 <label for="">Ajoutez des photos</label>
                 <div class="col-md-3">
