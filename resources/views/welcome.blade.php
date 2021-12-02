@@ -1,5 +1,7 @@
 @extends('layouts.template')
 @section('content')
+    <link rel="stylesheet" href="{{ asset("assets/css/range-price.css") }}">
+
  <style>
      .title{
         background-color: #00a1f1;
@@ -22,69 +24,88 @@
      }
 
      .inputtext{
-        border-radius: 50px ;
+
         background-color: #ebebeb !important;
      }
      .option-buttion-label{
-         padding-top:3px !important;
-         font-size: 1.6em;
-         font-weight: 100 !important
+         padding-top:0.45rem !important;
+         font-size: 1.2em;
+         font-weight: 500 !important
      }
-     .select-left{
+    .form-check-input{
+        margin-top: 0.45em;
+
+    }
+     .select-category{
         background-color: #ebebeb !important;
-        border-radius: 50px ;
         width: 100% !important;
         height: 40px;
         padding-top: 8px !important;
-        background: url('http://localhost:8000/assets/icon/icon-menu.png') no-repeat left;
+        background: url('http://localhost:8000/assets/icon/list.svg') no-repeat left;
      }
+     .select-region{
+        background-color: #ebebeb !important;
+        width: 100% !important;
+        height: 40px;
+        padding-top: 8px !important;
+        background: url('http://localhost:8000/assets/icon/map-pin.svg') no-repeat left;
+     }
+
+
  </style>
+
  @include('layouts.carousel')
 
-<div class="row justify-content-center" style="padding-top: 2%">
-    <div class="col-md-10 col-lg-6 shadow form-search"  style="background-color: white; padding :2%">
+<div class="row justify-content-center" style="padding: 2%">
+    <div class="col-md-12 col-sm-12 col-lg-12 shadow"  style="background-color: white; padding :2%">
         <form action="{{ route('annonce.search.post') }}" method="POST">
             @csrf
             <div class="row" style="margin-bottom: 2%">
-                <div class="col-md-3" style="margin-left: 50px">
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" checked name="type_annonce" value="1" id="offre">
-                        <label class="form-check-label" for="offre">
+                <div class="col-md-3">
+                    <div class="form-check inputtext" style="padding: 2%">
+                        <input class="form-check-input" style="margin-left:0px;" type="radio" checked name="type_annonce" value="1" id="offre">
+                        <label class="form-check-label" style="margin-left: 2rem" for="offre">
                           <p class="option-buttion-label">Offres</p>
                         </label>
                     </div>
-                    <div class="form-check" style="margin-top: 40px">
-                        <input class="form-check-input" type="radio" name="type_annonce" value="2" id="demande">
-                        <label class="form-check-label" for="demande">
+                </div>
+                <div class="col-md-3">
+                    <div class="form-check inputtext" style="padding: 2%">
+                        <input class="form-check-input" style="margin-left:0px;" type="radio" name="type_annonce" value="2" id="demande">
+                        <label class="form-check-label" style="margin-left: 2rem" for="demande">
                           <p class="option-buttion-label">Demandes</p>
                         </label>
                     </div>
                 </div>
+                <div class="col-md-6">
+                    <div class="inputtext" >
+                        <div class="row">
+                            <div class="col-1 text-center">
+                                <div style="background-color: transparent;color:black; width: 30px;height: 30px;border-radius: 50px;margin-top: 4px">
+                                    <i  class="fa fa-search"></i>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <input type="text" style="background-color: transparent; border:none" placeholder="Recherche" name="search" id="search">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 2%">
                 <div class="col-md-4">
                     <div style="padding: 0px;padding-right: 2px">
-                        <select class="select-left" name="category" id="category">
+                        <select class="select-category" name="category" id="category">
                             <option value="0"> &nbsp;&nbsp;&nbsp;Toutes catégorie</option>
                             @foreach ($categories as $categorie)
                                 <option value="{{$categorie->id}}"> &nbsp;&nbsp;&nbsp;{{$categorie->name}}</option>
                             @endforeach
                         </select>
                     </div>
-                    <div class="inputtext" style="margin-top: 20px">
-                        <div class="row">
-                            <div class="col-2 text-center">
-                                <div style="background-color: white;color:#00a1f1; width: 30px;height: 30px;border-radius: 50px;margin-top: 4px">
-                                    <i  class="fa fa-search"></i>
-                                </div>
-                            </div>
-                            <div class="col-9">
-                                <input type="text" style="background-color: transparent; border:none" placeholder="Recherche" name="search" id="search">
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="col-md-4">
                     <div style="padding: 0px;padding-right: 2px">
-                        <select class="select-left" name="region" id="region" wire:model="region_query">
+                        <select class="select-region" name="region" id="region" wire:model="region_query">
                             <option value="0">&nbsp;&nbsp;&nbsp; Toutes Régions</option>
                             @foreach (App\Models\region::all() as $region)
                                 <option value="{{$region->id}}"> &nbsp;&nbsp;&nbsp;{{$region->name}}</option>
@@ -92,70 +113,48 @@
                         </select>
                     </div>
                 </div>
+                <div class="col-md-4 shadow" style="border-radius: 1%!important" >
+                    <div class="wrapper" style="padding: 0px;">
+                        <div class="container-range">
+                            <div class="slider-track"></div>
+                            <input type="range" style="border: none !important" min="0" max="10000000" value="0" id="slider-min" oninput="slideMin()">
+                            <input type="range" style="border: none !important" min="0" max="10000000" value="10000000" id="slider-max" oninput="slideMax()">
+                            <span style="left: 0">
+                                Min
+                            </span>
+                            <span style="right: 0;position: absolute;">
+                                Max
+                            </span>
+                        </div>
+                        <div style="width: 100% !important;position: relative;font-weight: 200;margin-top: -2em;font-size: 0.9em">
+                            <span id="range-min" style="left: 0">
+                                0
+                            </span>
+                            <span id="range-max" style="right: 0;position: absolute;">
+                                100
+                            </span>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="row justify-content-center text-center">
-                <div class="col-md-2" style="background-color: #00a1f1;border-radius: 50px; position: absolute; margin-top: 15px">
+                <div class="col-md-2" style="background-color: #00a1f1; position: absolute; margin-top: 1.2%">
                     <button type="submit" class="title-deposer" style="background-color: transparent;border: none; color:white;padding :4px; font-size: 1.2em"> Rechercher</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
-{{-- DEPOSER BUTTON --}}
-<div class="row justify-content-center" style="padding-top: 4%; padding-bottom: 2%">
-    <div style="width: 29%" class="section-title text-center">
-        <a href="{{url('/')}}" class="title-deposer"> <i class="icon-plus-circle"></i> &nbsp; Déposer une annonce</a>
+<div class="row justify-content-center" style="padding: 2%">
+    <div class="col-md-12 col-sm-12 col-lg-12 shadow"  style="background-color: white; ">
+        <h3 style="font-family: segouil;font-weight: 100 !important;margin-bottom: 0px !important;border-bottom: 1px solid rgba(122, 120, 120, 0.185);" >Catégories les plus populaires</h3>
+        @livewireStyles
+            <livewire:topcategory/>
+        @livewireScripts
     </div>
 </div>
 
-{{-- CATEGORIE --}}
-<div class="new-product-area " style="padding-bottom: 2%">
-    <div class="container">
-        <div class="row ">
-            <div class="col-md-2">
-                <div class="section-title text-center title">
-                    <p style="padding-top: 7%;padding-bottom: 7%; color:white; font-size: 1.3em;font-weight: 600">Top Catégories</h2>
-                </div>
-            </div>
-        </div>
-        <div class="product-wrapper">
-            <div class="swiper-container product-active">
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide">
-                        <div class="single-product">
-                            <div class="product-image">
-                                <a href="shop-single.html">
-                                    <img src="{{asset('assets/images/testimonial-img-2.png')}}" alt="">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="single-product">
-                            <div class="product-image">
-                                <a href="shop-single.html">
-                                    <img src="{{asset('assets/images/testimonial-img-1.png')}}" alt="">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="single-product">
-                            <div class="product-image">
-                                <a href="shop-single.html">
-                                    <img src="{{asset('assets/images/bkg_grid.png')}}" alt="">
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Add Arrows -->
-                <div class="swiper-next"><i class="fa fa-angle-right"></i></div>
-                <div class="swiper-prev"><i class="fa fa-angle-left"></i></div>
-            </div>
-        </div>
-    </div>
-</div>
+{{--  CARTE  --}}
 <div class="row justify-content-center" style="padding-top: 2%">
     <div class="container">
         <div class="row">
@@ -266,27 +265,29 @@
         </div>
     </div>
 </div>
-<div class="new-product-area " style="padding-bottom: 2%">
-    <div class="container">
-        <div style="padding: 1%;background-color: #00a1f1;border-radius: 30px; color:white; font-size: 1.3em;font-weight: 600;width: max-content">
-            Toutes les Catégories
+
+<div style="background-color: #FFBB02;padding: 1%;margin-top: 1%">
+    <div class="row">
+        <div class="col-md-7 text-right">
+            <h3 style="font-family: segouil;font-weight: 100;color:white;font-size: 1.2em"> <i style="color:black !important;margin-right: 3%" class="fa fa-send"></i>Text pour newsletters Inter quos Paulus eminebat notarius ortus in Hispania, glabro quidam sub vultu</h3>
         </div>
-        <div style="padding: 1%;background-color: white;border-radius: 20px; color:black;margin-top: 1%">
-            <div class="row">
-                @foreach (App\Models\group_categorie::all() as $groupe_categorie )
-                    <div class="col-md-4" style="margin-bottom: 2%">
-                        <h4 style="font-family: segouil;font-weight: bold;color: #00a1f1">{{ strtoupper($groupe_categorie->name) }}</h4>
-                        @foreach ( $groupe_categorie->categorie as $categorie)
-                            <a href="{{route('annonce.search',['category'=>$categorie->id])}}" style="font-family: segouil;font-weight: 100;">{{ $categorie->name }}</a> <br>
-                        @endforeach
-                    </div>
-                @endforeach
-            </div>
+        <div class="col-md-5">
+            <input type="email" name="email_news" style="border-radius: 20px" placeholder="Votre adresse email ici" id="">
         </div>
     </div>
-
 </div>
+
+<div style="background-color: white;width: 100%;padding: 1%">
+    <div class="row">
+        <div class="col-md-7 text-right">
+        </div>
+        <div class="col-md-5">
+        </div>
+    </div>
+</div>
+
 <!--New Product End-->
+<script src="{{ asset("assets/js/range-price.js") }}"></script>
 <script>
     var myCarousel = document.querySelector('#carouselExampleCaptions')
         var carousel = new bootstrap.Carousel(myCarousel, {

@@ -31,6 +31,7 @@
             font-family: segouil;
             font-weight: 100;
         }
+
     </style>
     <!-- Plugins CSS -->
     <link rel="stylesheet" href="{{asset('assets/css/plugins/animate.css')}}">
@@ -145,7 +146,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3">
                             <div class="header-logo">
-                                <a href="{{url('/')}}"><img src="{{asset('assets/images/logo.jpg')}}" style="width: 27%" alt="logo_bizinastore"></a>
+                                <a href="{{url('/')}}"><img src="{{asset('assets/images/logo.jpg')}}" style="width: 20%" alt="logo_bizinastore"></a>
                             </div>
                         </div>
                         <div class="col-lg-3 position-static">

@@ -111,7 +111,8 @@ class AnnonceSearch extends Component
                 'annonces'=> $annonces->paginate(12),
                 'categories'=>categorie::all(),
                 'regions'=>region::all(),
-                'annonces_payantes'=> $annonces->where('payant','=','1')->orderBy('id','DESC')->get()->take(5)
+                'annonces_payantes'=> $annonces->where('payant','=','1')->orderBy('id','DESC')->get()->take(5),
+                'last_annonces'=>annonce::orderBy('id','DESC')->get()->take(5)
             ]);
     }
 }

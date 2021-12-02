@@ -1,0 +1,105 @@
+
+.wrapper{
+    /* position: relative; */
+    width: 100%;
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+.container-range{
+    position: relative;
+    width: 100%;
+
+    height: 5em;
+    /* margin-top: 30px; */
+}
+
+input[type="range"]{
+    -webkit-appearance: none !important;
+    -moz-appearance: none;
+    appearance: none !important;
+    width: 100% !important;
+    outline: none !important;
+    position: absolute !important;
+    margin: auto !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    background-color: transparent !important;
+    pointer-events: none !important;
+}
+.slider-track{
+    width: 100% !important;
+    height: 5px !important;
+    position: absolute !important;
+    margin: auto !important;
+    top: 0 !important;
+    bottom: 0 !important;
+    border-radius: 5px !important;
+}
+input[type="range"]::-webkit-slider-runnable-track{
+    -webkit-appearance: none !important;
+    height: 5px !important;
+}
+input[type="range"]::-moz-range-track{
+    -moz-appearance: none !important;
+    height: 5px !important;
+}
+input[type="range"]::-ms-track{
+    appearance: none !important;
+    height: 5px !important;
+}
+input[type="range"]::-webkit-slider-thumb{
+    -webkit-appearance: none !important;
+    height: 1.7em !important;
+    width: 1.7em !important;
+    background-color: #3264fe !important;
+    cursor: pointer !important;
+    margin-top: -9px !important;
+    pointer-events: auto !important;
+    border-radius: 50% !important;
+}
+input[type="range"]::-moz-range-thumb{
+    -webkit-appearance: none !important;
+    height: 1.7em !important;
+    width: 1.7em !important;
+    cursor: pointer;
+    border-radius: 50% !important;
+    background-color: #3264fe !important;
+    pointer-events: auto !important;
+}
+input[type="range"]::-ms-thumb{
+    appearance: none !important;
+    height: 1.7em !important;
+    width: 1.7em !important;
+    cursor: pointer !important;
+    border-radius: 50% !important;
+    background-color: #3264fe !important;
+    pointer-events: auto !important;
+}
+input[type="range"]:active::-webkit-slider-thumb{
+    background-color: #ffffff !important;
+    border: 3px solid #3264fe !important;
+}
+/* .values{
+    background-color: #3264fe;
+    width: 30%;
+    position: relative;
+    margin: auto;
+    padding: 10px 0;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: 500;
+       color: #ffffff;
+} */
+/* .values:before{
+    content: "";
+    position: absolute;
+    height: 0;
+    width: 0;
+    border-top: 15px solid #3264fe;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    margin: auto;
+    bottom: -14px;
+    left: 0;
+    right: 0;
+} */
