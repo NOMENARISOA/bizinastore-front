@@ -67,8 +67,8 @@ Route::post('/contact/store', [App\Http\Controllers\OtherController::class, 'con
 Route::get('/forum/index', [App\Http\Controllers\ForumController::class, 'index'])->name('forum.index');
 Route::get('/forum/show/{id}', [App\Http\Controllers\ForumController::class, 'show'])->name('forum.show');
 Route::get('/forum/create', [App\Http\Controllers\ForumController::class, 'create'])->name('forum.create');
-Route::post('/forum/store', [App\Http\Controllers\ForumController::class, 'store'])->name('forum.store')->middleware('authtwoUser');
-Route::post('/forum/commentaire', [App\Http\Controllers\ForumController::class, 'commentaire'])->name('forum.commentaire')->middleware('authtwoUser');
+Route::post('/forum/store', [App\Http\Controllers\ForumController::class, 'store'])->name('forum.store')->middleware('auth');
+Route::post('/forum/commentaire', [App\Http\Controllers\ForumController::class, 'commentaire'])->name('forum.commentaire')->middleware('auth');
 
 
 Route::get("redirect/{provider}",[App\Http\Controllers\SocialiteController::class, 'redirect'] )->name('socialite.redirect');

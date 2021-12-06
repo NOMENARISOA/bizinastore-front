@@ -423,18 +423,18 @@
                                             <h3 style="font-family: segouil;font-weight: 100; margin-bottom: 0px;font-size: 1.1em;">{{ number_format($annonce->prix, 0,',',' ') }} Ar</h3>
                                                 {{--  <div class=""  style="background-color: #FFBB02;border-radius: 20px;">  --}}
                                                 <div class="row justify-content-center">
-                                                    <div class="col-md-8">
-                                                        <a class=" btn btn-warning" style="text-align: center;width: 100%;height: 100%;border-radius: 20px;line-height: 2em; ;font-weight: 100;font-family: segouil; color: white;font-size: 1em;text-transform: none;padding :0px;">Voir détails</a>
+                                                    <div class="col-md-8" style="margin-top: 1em">
+                                                        <a class="btn btn-warning" style="text-align: center;width: 100%;height: 100%;border-radius: 20px;line-height: 2em; ;font-weight: 100;font-family: segouil; color: white;font-size: 1em;text-transform: none;padding :0px;">Voir détails</a>
                                                     </div>
                                                 </div>
                                                 {{--  </div>  --}}
-                                                <div class="row mobil-padding" >
+                                                <div class="row mobil-padding" style="margin-top: 1em" >
                                                     <div class="col-md-4 col-4">
                                                         @if (Auth::check())
                                                             @if(App\Models\favoris::where('user_id','=',Auth::user()->id)->where('annonce_id','=',$annonce->id)->count() > 0)
-                                                                <button class="button-favoris" style="background-color: transparent;border:none; box-shadow: none;font-family: segouil;font-size: 100;color:#00a1f1;font-size: 0.8em" wire:click="delete_favoris({{ $annonce->id }})"><i style="color:#E70001;font-size: 1.2em" class="fa fa-heart"></i> &nbsp Favoris </button>
+                                                                <button class="button-favoris" style="background-color: transparent;border:none; box-shadow: none;font-family: segouil;font-size: 100;color:color:rgba(0, 0, 0, 0.589);font-size: 0.8em" wire:click="delete_favoris({{ $annonce->id }})"><i style="color:#E70001;font-size: 1.2em" class="fa fa-heart"></i> &nbsp Favoris </button>
                                                             @else
-                                                                <button class="button-favoris" style="background-color: transparent;border:none; box-shadow: none;padding-top: 2px; font-family: segouil;font-size: 100;color:#00a1f1;font-size: 0.8em" wire:click="add_favoris({{ $annonce->id }})"><i class="icon-heart" style="font-size: 1.2em" style=""></i>&nbsp Favoris</button>
+                                                                <button class="button-favoris" style="background-color: transparent;border:none; box-shadow: none;padding-top: 2px; font-family: segouil;font-size: 100;color:color:rgba(0, 0, 0, 0.589);font-size: 0.8em" wire:click="add_favoris({{ $annonce->id }})"><i class="icon-heart" style="font-size: 1.2em" style=""></i>&nbsp Favoris</button>
                                                             @endif
                                                         @endif
                                                     </div>

@@ -57,7 +57,7 @@
  @include('layouts.carousel')
 
 <div class="row justify-content-center" style="padding: 2%">
-    <div class="col-md-12 col-sm-12 col-lg-12 shadow"  style="background-color: white; padding :2%">
+    <div class="col-md-8 col-sm-8 col-lg-8 shadow"  style="background-color: white; padding :2%">
         <form action="{{ route('annonce.search.post') }}" method="POST">
             @csrf
             <div class="row" style="margin-bottom: 2%">
@@ -146,7 +146,7 @@
     </div>
 </div>
 <div class="row justify-content-center" style="padding: 2%">
-    <div class="col-md-12 col-sm-12 col-lg-12 shadow"  style="background-color: white; ">
+    <div class="col-md-8 col-sm-8 col-lg-8 shadow"  style="background-color: white; ">
         <h3 style="font-family: segouil;font-weight: 100 !important;margin-bottom: 0px !important;border-bottom: 1px solid rgba(122, 120, 120, 0.185);" >Catégories les plus populaires</h3>
         @livewireStyles
             <livewire:topcategory/>

@@ -43,12 +43,10 @@ class ForumController extends Controller
         $forum->titre = $request->get('titre');
         $forum->content = $request->get('content');
 
-        if(Auth::guard('users')->check()){
-            $forum->user_id = Auth::guard('users')->user()->id;
-        }
-        if(Auth::guard('annonceurs')->check()){
+        $forum->user_id = Auth::user()->id;
+        /*if(Auth::guard('annonceurs')->check()){
             $forum->annonceur_id = Auth::guard('annonceurs')->user()->id;
-        }
+        }*/
         $forum->save();
 
         return redirect()->back()->with('success','Votre sujet a été bien publier');
@@ -72,12 +70,10 @@ class ForumController extends Controller
         $comment->comment = $request->get('commentaire');
         $comment->forum_id = $request->get('forum_id');
 
-        if(Auth::guard('users')->check()){
-            $comment->user_id = Auth::guard('users')->user()->id;
-        }
-        if(Auth::guard('annonceurs')->check()){
+        $comment->user_id = Auth::user()->id;
+      /*  if(Auth::guard('annonceurs')->check()){
             $comment->annonceur_id = Auth::guard('annonceurs')->user()->id;
-        }
+        }*/
 
         $comment->save();
 

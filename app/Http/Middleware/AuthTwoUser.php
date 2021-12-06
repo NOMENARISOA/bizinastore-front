@@ -17,9 +17,9 @@ class AuthTwoUser
      */
     public function handle(Request $request, Closure $next)
     {
-        if (Auth::guard('annonceurs')->check()) {
+       /* if (Auth::guard('annonceurs')->check()) {
             return $next($request);
-        }
+        }*/
         if( Auth::guard('users')->check()){
             return $next($request);
         }
