@@ -7,6 +7,7 @@ use App\Models\conversation;
 use App\Models\favoris;
 use App\Models\message;
 use App\Models\User;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -30,7 +31,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view("auth.register");
     }
 
     /**
@@ -41,15 +42,25 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $user = new User();
+        try{
+            if($request->get("password") == $request->get("confirm")){
+                $user = new User();
 
-        $user->name = $request->get('email');
-        $user->email = $request->get('email');
-        $user->password = bcrypt($request->get('password'));
+                $user->name = $request->get('name');
+                $user->lastname = $request->get('lastname');
+                $user->email = $request->get('email');
+                $user->phone = $request->get('phone');
+                $user->password = bcrypt($request->get('password'));
 
-        $user->save();
+                $user->save();
 
-        return redirect()->route('login')->with('success','Votre compte à été bien crée');
+                return redirect()->route('login')->with('success','Votre compte à été bien crée');
+            }else{
+                return redirect()->back()->with('error',"Veuillez confirmer votre mot de passe S'il vous plaît !");
+            }
+        }catch(Exception $e){
+            return redirect()->back()->with('error','Adresse email déjà existé');
+        }
     }
 
     /**
@@ -206,5 +217,25 @@ class UsersController extends Controller
         $annonce = annonce::findOrFail($id);
         $annonce->delete();
         return redirect()->back()->with('success','Suppression avec succès');
+    }
+
+
+    public function complete(){
+
+        return view("auth.complete");
+    }
+
+    public function complete_store(Request $request){
+    //   dd("ok");
+        $users = Auth::user();
+        $users->update([
+            "name"=>$request->name,
+            "lastname"=>$request->lastname,
+            "phone"=>$request->phone,
+            "is_active"=>0
+        ]);
+        $users->save();
+
+        return redirect()->route('home')->with("success","Votre compte a été bien activer");
     }
 }

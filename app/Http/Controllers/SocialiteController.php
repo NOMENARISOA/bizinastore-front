@@ -58,7 +58,8 @@ class SocialiteController extends Controller
                 $user = User::create([
                     'name' => $name,
                     'email' => $email,
-                    'password' => bcrypt("emilie") // On attribue un mot de passe
+                    'is_active'=>1,
+                    'password' => bcrypt($email) // On attribue un mot de passe
                 ]);
             }
 

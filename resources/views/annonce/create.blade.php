@@ -81,7 +81,9 @@
                         @endforeach
                     </select>
                 </div>
+
             </div>
+            <div class="row" id="sub_category" style="margin-top: 2%"></div>
             <div class="row" style="margin-top: 2%">
                 <label for="">Ajoutez des photos</label>
                 <div class="col-md-3">

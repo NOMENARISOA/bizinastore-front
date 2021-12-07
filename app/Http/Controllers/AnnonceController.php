@@ -189,6 +189,7 @@ class AnnonceController extends Controller
     }
 
     public function search_post(Request $request){
+
         return redirect()->route('annonce.search',['type_annonce'=>$request->get('type_annonce'),'category'=>$request->get('category'),'query'=>$request->get('search'),'region'=>$request->get('region')]);
     }
 

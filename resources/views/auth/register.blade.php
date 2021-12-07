@@ -1,75 +1,155 @@
-@extends('layouts.app')
+@extends('layouts.template')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus>
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+{{-- <div class="container">
+    <div class="row justify-content-center" style="padding: 2%;">
+        <div class="col-md-4 col-lg-3 shadow form-search"  style="background-color: white; padding :2%; border-radius: 20px">
+            <h4 class="text-center">Connexion </h2>
+            <p class="text-center">Saisissez votre e-mail pour vous connecter ou pour vous s'inscir</p>
+                <form class="text-center" method="POST" action="{{ route('login') }}">
+                    @csrf
+                    <input class="inputtext" type="email" name="email" id="email" placeholder="E-mail" required>
+                    <input class="inputtext" type="password" name="password" id="password" placeholder="Mot de passe" required>
+                    <div class="row" style="margin-top: 5%">
+                        <div class="col-md-6" >
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                </div>
+                                <div class="col-md-9 text-left">
+                                    <label for="remember" class="remeber">Se souvenir de moi</p>
+                                </div>
                             </div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                        <div class="col-md-6" >
+                            @if (Route::has('password.request'))
+                            <a class="btn btn-link" href="{{ route('password.request') }}">
+                                Mot de passe oublié ?
+                            </a>
+                        @endif
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="new-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-validate" formaction="{{route('login')}}">Connexion</button>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required autocomplete="new-password">
-                            </div>
+                        <div class="col-md-6">
+                            <button type="submit" class="btn btn-validate" formaction="{{route('users.store')}}" style="background-color: #00A1F1">S'inscrir</button>
                         </div>
+                    </div>
+            </form>
+            <br>
+            <div class="row justify-content-center">
+                <div class="col-md-2">
+                    <a href="{{ route('socialite.redirect', 'google') }}" title="Connexion/Inscription avec Google" class="btn" style="background-color: #f75314;color:white;font-family: segouil;font-weight: 100;padding-left: 2%;padding-right: 2%;font-size: 0.7em;min-width:50px;border-radius:50%"> <i class="fa fa-google"></i></a>
 
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
                 </div>
+                <div class="col-md-2">
+                    <a href="{{ route('socialite.redirect', 'facebook') }}" title="Connexion/Inscription avec Facebook" class="btn" style="background-color: #3b5998;color:white;font-family: segouil;font-weight: 100;padding-left: 2%;padding-right: 2%;font-size: 0.7em;min-width:50px;border-radius:50%"> <i class="fa fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> --}}
+
+@section('content')
+<style>
+    h4{
+        font-weight: bold;
+        color: #f75314;
+        font-family: Rubik;
+    }
+    p  {
+        font-weight: 100;
+    }
+    .inputtext{
+        border: none !important;
+        border-bottom: 1px solid rgba(0, 128, 0, 0.322) !important;
+        font-weight: 100 !important;
+        font-size: 1em !important;
+        width: 90%;
+        margin-bottom: 3%;
+    }
+    label{
+        font-weight: 100;
+        font-size: 0.8 em;
+        text-transform :none;
+    }
+    .form-check-input{
+        margin-top: 3%
+    }
+    .btn-link{
+        font-size: 0.8em;
+        font-weight: 100;
+        padding: 0px;
+        margin-top: -9%;
+        color: #00A1F1;
+    }
+
+    .btn {
+        padding: 0px;
+    }
+    .btn-validate{
+        background-color: #00A1F1;
+       // border-radius: 50px;
+        color: white;
+        font-weight: bold;
+        padding-left: 5%;
+        padding-right: 5%;
+        margin-top: 6%;
+        text-transform :none;
+        width: 100%;
+        font-family:segouil;
+        line-height:30px;
+        height:40px;
+    }
+    .remeber{
+        font-size: 0.8em;
+        font-weight: 100;
+        margin-top: 1%;
+    }
+</style>
+<div class="row justify-content-center" style="padding: 2%;">
+    <div class="col-md-4 col-lg-3 shadow form-search"  style="background-color: white; padding :2%; border-radius: 20px">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <img src="{{ asset("assets/images/logo.png") }}" style="width: 100%">
+            </div>
+        </div>
+        {{-- <h4 class="text-center">Inscription </h2> --}}
+        <p class="text-center" style="font-family: segouil; margin-top: 2%">Eo adducta re per Isauriam, rege Persarum bellis finitimis inligato repellenteque a conlimitiis suis ferocissimas gentes, quae mente quadam versabili hostiliter</p>
+            <form class="text-center" method="POST" action="{{ route('login') }}">
+                @csrf
+                <div class="row">
+                    <div class="col-md-6">
+                        <input class="inputtext" type="text" name="name" id="name" placeholder="Votre Nom" required>
+                    </div>
+                    <div class="col-md-6">
+                        <input class="inputtext" type="text" name="lastname" id="lastname" placeholder="Votre Prénom" required>
+                    </div>
+                </div>
+                <input class="inputtext" type="email" name="email" id="email" placeholder="E-mail" required>
+                <input class="inputtext" type="text" name="phone" id="phone" placeholder="Numéro téléphone" required>
+                <input class="inputtext" type="password" name="password" id="password" placeholder="Mot de passe" required>
+                <input class="inputtext" type="password" name="confirm" id="confirm" placeholder="Confirmer votre mot de passe" required>
+
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <button type="submit" class="btn btn-validate shadow" formaction="{{route('users.store')}}">S'inscrire</button>
+                    </div>
+                </div>
+                <div class="col-md-12" style="font-family: segouil">
+                    Déjà une compte ? <a  class="" href="{{route('login')}}" style="color: #00A1F1">Connectez-vous</a>
+                </div>
+        </form>
+        <br>
+        <div class="row justify-content-center">
+            <div class="col-md-2">
+                <a href="{{ route('socialite.redirect', 'google') }}" title="Connexion/Inscription avec Google" class="btn shadow" style="background-color: #f75314;color:white;font-family: segouil;font-weight: 100;padding-left: 2%;padding-right: 2%;font-size: 0.7em;min-width:50px;border-radius:50%"> <i class="fa fa-google"></i></a>
+
+            </div>
+            <div class="col-md-2">
+                <a href="{{ route('socialite.redirect', 'facebook') }}" title="Connexion/Inscription avec Facebook" class="btn shadow" style="background-color: #3b5998;color:white;font-family: segouil;font-weight: 100;padding-left: 2%;padding-right: 2%;font-size: 0.7em;min-width:50px;border-radius:50%"> <i class="fa fa-facebook"></i></a>
             </div>
         </div>
     </div>

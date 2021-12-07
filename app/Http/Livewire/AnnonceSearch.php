@@ -7,7 +7,9 @@ use App\Models\categorie;
 use App\Models\favoris;
 use App\Models\historique_search;
 use App\Models\region;
+use App\Models\view_annonce;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 use SebastianBergmann\Environment\Console;
@@ -15,10 +17,10 @@ use SebastianBergmann\Environment\Console;
 class AnnonceSearch extends Component
 {
     use WithPagination;
-    public $sub_menu_query = array();
-    public $sub_query_temp = array();
-    public $prix_max ="";
-    public $prix_min ="";
+    public $prix_max =0;
+    public $prix_min =0;
+    public $prix_max_query =10000000;
+    public $prix_min_query =0;
     public $etat= null;
     public $category =0;
     public $search = null;
@@ -57,8 +59,11 @@ class AnnonceSearch extends Component
         $this->category = $this->category_query;
         $this->type_annonce = $this->type_annonce_query;
         $this->search = $this->search_query;
+        $this->prix_max = $this->prix_max_query;
+        $this->prix_min = $this->prix_min_query;
 
-         dd($this->sub_query_temp);
+        $this->render();
+         dd($this->type_annonce_query . " " . $this->region_query . " " . $this->type_annonce_query . " " . $this->search_query." ". $this->prix_min_query ." ". $this->prix_max_query);
     }
 /*
     public function addCheckBoxySubcategoryValue($sub_category_id,$sub_category_value_id){
@@ -107,12 +112,17 @@ class AnnonceSearch extends Component
             if(! empty($this->search)){
                 $annonces = $annonces->where('titre','LIKE','%'.$this->search.'%');
             }
+           // $top_annonces = view_annonce::with("annonce")->groupby("annonce_id")->select(DB::raw('count(*) as total, annonce_id'))->select(DB::raw('annonces.*'))->orderBy("total","DESC")->get()->take(2);
+           $top_annonces = DB::table('annonces')->join("view_annonces","annonces.id","=","view_annonces.annonce_id")->orderBy(DB::raw('count(view_annonces.id)'), 'DESC')->groupBy("annonce_id")->select("annonces.*")->get()->take(5);
+        //    "selectRaw('count(view_annonces.id) as total')->groupBy("annonce_id")->get()"
+         //  dd($top_annonces);
             return view('livewire.annonce-search',[
-                'annonces'=> $annonces->paginate(12),
+                'annonces'=> $annonces->paginate(5),
                 'categories'=>categorie::all(),
                 'regions'=>region::all(),
-                'annonces_payantes'=> $annonces->where('payant','=','1')->orderBy('id','DESC')->get()->take(5),
-                'last_annonces'=>annonce::orderBy('id','DESC')->get()->take(5)
+                'annonces_payantes'=> annonce::where('payant','=','1')->orderBy('id','DESC')->get()->take(5),
+                'last_annonces'=>annonce::orderBy('id','DESC')->get()->take(5),
+                'top_annonces'=>$top_annonces
             ]);
     }
 }

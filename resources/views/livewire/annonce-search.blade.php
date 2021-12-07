@@ -107,265 +107,90 @@
             }
         })
     </script>
-    {{--  @dump($sub_query_temp)  --}}
-    {{--  <div class="row justify-content-center" style="padding-top: 2%;margin-bottom: 2%">
-        <div class="shadow col-md-10 col-lg-6 col-10 form-search"  style="background-color: white;padding-left: 2%;padding-top: 1%;;padding-bottom: 0.2%">
-            <div class="row">
-                <div class="col-lg-2 col-md-2" >
-                    <div class="form-check" >
-                        <input class="form-check-input" style="width: 0.8em;height: 0.8em;" type="radio" checked name="type_annonce" id="offre"  value="1" wire:click="select_type_annonce(1)">
-                        <label class="form-check-label" for="offre">
-                          <p class="option-buttion-label" style="font-size: 1.2em">Offres</p>
+    <div class="row justify-content-center" style="padding-top: 2%">
+        <div class="col-md-10 col-sm-8 col-lg-8 shadow"  style="background-color: white; padding :2%">
+            <div class="row" style="margin-bottom: 2%">
+                <div class="col-md-3">
+                    <div class="form-check inputtext" style="padding: 2%">
+                        <input class="form-check-input" style="margin-left:0px;" type="radio" wire:click="select_type_annonce(1)" checked name="type_annonce" value="1" id="offre">
+                        <label class="form-check-label" style="margin-left: 2rem" for="offre">
+                          <p class="option-buttion-label">Offres</p>
                         </label>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-check" >
-                        <input class="form-check-input" style="width: 0.8em;height: 0.8em;" type="radio" name="type_annonce" id="demande"  value="2" wire:click="select_type_annonce(2)">
-                        <label class="form-check-label" for="demande">
-                          <p class="option-buttion-label" style="font-size: 1.2em">Demandes</p>
+                    <div class="form-check inputtext" style="padding: 2%">
+                        <input class="form-check-input" style="margin-left:0px;" type="radio" wire:click="select_type_annonce(2)" name="type_annonce" value="2" id="demande">
+                        <label class="form-check-label" style="margin-left: 2rem" for="demande">
+                          <p class="option-buttion-label">Demandes</p>
                         </label>
                     </div>
                 </div>
-            </div>
-            <div class="row" style="margin-bottom: 3%">
-                <div class="col-md-3">
-                    <div style="padding: 0px;padding-right: 2px;">
-                        <select class="select-left" name="category" id="category" wire:model="category_query">
-                            <option value="0"> &nbsp;&nbsp;&nbsp;Toutes Catégorie</option>
-                                @foreach ($categories as $categorie)
-                                    <option value="{{$categorie->id}}"> &nbsp;&nbsp;&nbsp;{{$categorie->name}}</option>
-                                @endforeach
-                            </select>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="inputtext">
+                <div class="col-md-6">
+                    <div class="inputtext" >
                         <div class="row">
-                            <div class="text-center col-2">
-                                <div style="background-color: white;color:#4286f5; width: 30px;height: 30px;border-radius: 50px;margin-top: 4px">
+                            <div class="col-1 text-center">
+                                <div style="background-color: transparent;color:black; width: 30px;height: 30px;border-radius: 50px;margin-top: 4px">
                                     <i  class="fa fa-search"></i>
                                 </div>
                             </div>
-                            <div class="col-9">
-                                <input type="text" style="background-color: transparent; border:none" placeholder="Recherche" wire:model.defer="search_query" name="search" id="search">
-                                <script type="text/javascript">
-                                    var route = "{{ route('api.autocompleteSearch') }}";
-
-                                    $('#search').typeahead({
-                                        source: function (query, process) {
-                                            return $.get(route, {
-                                                term: query
-                                            }, function (data) {
-                                                console.log(data);
-                                                return process(data);
-                                            });
-                                        }
-                                    });
-                                </script>
+                            <div class="col-10">
+                                <input type="text" style="background-color: transparent; border:none" placeholder="Recherche" wire:model="search_query" name="search" id="search">
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row" style="margin-bottom: 2%">
                 <div class="col-md-4">
                     <div style="padding: 0px;padding-right: 2px">
-                        <select class="select-left" name="region" id="region" wire:model="region_query">
+                        <select class="select-category" wire:model="category_query" name="category" id="category">
+                            <option value="0"> &nbsp;&nbsp;&nbsp;Toutes catégorie</option>
+                            @foreach ($categories as $categorie)
+                                <option value="{{$categorie->id}}"> &nbsp;&nbsp;&nbsp;{{$categorie->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div style="padding: 0px;padding-right: 2px">
+                        <select class="select-region" name="region"  wire:model="region_query" id="region" wire:model="region_query">
                             <option value="0">&nbsp;&nbsp;&nbsp; Toutes Régions</option>
-                            @foreach ($regions as $region)
+                            @foreach (App\Models\region::all() as $region)
                                 <option value="{{$region->id}}"> &nbsp;&nbsp;&nbsp;{{$region->name}}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
-
-                <div class="col-md-12">
-                    <div class="row" >
-                        @if($category_query != 0)
-                            <span class="badge_search  dropdown-toggle" id="dropdown-prix" data-toggle="dropdown">Prix</span>
-                            <div class="dropdown-menu" aria-labelledby="dropdown-prix" style="width: max-content">
-                                <div class="row justify-content-between" style="padding-right: 10px;padding-left:10px" >
-                                    <div class="col-md-6">
-                                        <input type="text" name="prix_min"   id="prix_min"  wire:model.defer="prix_min" value="2" placeholder="Prix minimum">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <input type="text" name="prix_max"  wire:model.defer ="prix_max" value="3" placeholder="Prix maximum">
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button class="btn_valider" wire:click="clear_prix"  style="background-color: #E70001 !important" >Effacer</button>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <button class="btn_valider" > Valider </button>
-                                    </div>
-                                </div>
-                            </div>
-
-                            @foreach (App\Models\sub_category::where("category_id",$category_query)->get() as $sub_category )
-                                @if($sub_category->type != 2)
-                                    <span class="badge_search dropdown-toggle" data-name="{{$sub_category->libelle}}" id="btn-span-{{$sub_category->id}}"  onclick="showDropdown({{ $sub_category->id }})">{{ $sub_category->libelle }}</span>
-                                    @if($sub_category->sub_category_list->count() > 0)
-                                        <div class="dropdown-custom-menu"  id="dropdown-{{ $sub_category->id }}"  >
-                                            <input type="text" id="{{ $sub_category->name }}"  name="{{ $sub_category->name }}"   placeholder="Recherche une valeur">
-                                            <div class="dropdown-list" id="{{ $sub_category->id }}-list">
-                                                @foreach ($sub_category->sub_category_list as $list)
-                                                    <div class="form-check">
-                                                        <input class="form-check-input" type="checkbox" onclick="addValueCheckBox({{ $list->id }},{{ $sub_category->id }})" value="{{ $list->value }}"   id="check-{{ $list->id }}">
-                                                        <label class="form-check-label" style="line-height: 2;" for="check-{{ $list->id }}">
-                                                            {{ $list->value }}
-                                                        </label>
-                                                    </div>
-                                                @endforeach
-                                            </div>
-                                        </div>
-                                    @else
-                                        <div class="dropdown-custom-menu"  id="dropdown-{{ $sub_category->id }}">
-                                            <div class="row justify-content-between" style="padding: 10px" >
-                                                <div class="col-md-6">
-                                                    <input type="number" id="{{ $sub_category->id }}-min" name="{{ $sub_category->id }}.min"  wire:model.defer="sub_query_temp.{{ $sub_category->id }}.min"  placeholder="Valeur minimum">
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <input type="number" id="{{ $sub_category->id }}-max" name="{{ $sub_category->id }}.min"  wire:model.defer ="sub_query_temp.{{ $sub_category->id }}.max"  placeholder="Valeur maximum">
-                                                </div>
-                                            </div>
-                                            <button class="btn btn-success btn_valide_subactegory" onclick="btn_valider_subcategory({{ $sub_category->id }})">Valider</button>
-                                        </div>
-                                    @endif
-                                @endif
-                                <script>
-
-                                    $('#{{ $sub_category->name }}').keyup(function() {
-
-                                        var value = $('#{{ $sub_category->name }}').val();
-                                        console.log(value.length);
-                                        $.ajax({
-                                            url: '{{ url("/") }}/api/subcategory_list/search/value',
-                                            type: 'POST',
-                                            data:{query:value,_token: "{{ csrf_token() }}"},
-                                            success: function(data) {
-                                                console.log(data)
-                                                var $container = $('#{{ $sub_category->id }}-list');
-                                                if(data.length >  0 ){
-
-                                                    $container.empty();
-                                                    var input = "";
-                                                    data.forEach(function(item){
-                                                        input = '<div class="form-check">'
-                                                            + '<input class="form-check-input" type="checkbox" value="'+ item.id +'" id="check-'+ item.id +'">'
-                                                            +'<label class="form-check-label" style="line-height: 2;" for="check-'+ item.id +'">'
-                                                            + item.name
-                                                            +'</label>'
-                                                            +'</div>';
-                                                         $container.append(input);
-                                                    });
-                                                }
-                                            }
-                                        });
-
-
-                                     });
-                                </script>
-                            @endforeach
-
-                        @endif
+                <div class="col-md-4 shadow" style="border-radius: 1%!important" >
+                    <div class="wrapper" style="padding: 0px;">
+                        <div class="container-range">
+                            <div class="slider-track"></div>
+                            <input type="range" style="border: none !important" min="0" max="10000000" wire:model.defer="prix_min_query" value="0" id="slider-min" oninput="slideMin()">
+                            <input type="range" style="border: none !important" min="0" max="10000000" wire:model.defer="prix_max_query" value="10000000" id="slider-max" oninput="slideMax()">
+                            <span style="left: 0">
+                                Min
+                            </span>
+                            <span style="right: 0;position: absolute;">
+                                Max
+                            </span>
+                        </div>
+                        <div style="width: 100% !important;position: relative;font-weight: 200;margin-top: -2em;font-size: 0.9em">
+                            <span id="range-min" style="left: 0">
+                                0
+                            </span>
+                            <span id="range-max" style="right: 0;position: absolute;">
+                                100
+                            </span>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="text-center row justify-content-center">
-                <div class="col-md-2 col-6" style="background-color: #00a1f1;border-radius: 50px; position: absolute; margin-top: -1%">
-                    <button class="title-deposer" wire:click="search" style="background-color: transparent;border: none; color:white;padding :4px; font-size: 0.9em"> Rechercher ({{ $annonces->count() }} résultats)</button>
+            <div class="row justify-content-center text-center">
+                <div class="col-md-2" style="background-color: #00a1f1; position: absolute; margin-top: 1.2%">
+                    <button wire:click="search" class="title-deposer" style="background-color: transparent;border: none; color:white;padding :4px; font-size: 1.2em"> Rechercher ({{ $annonces->count() }} résultats)</button>
                 </div>
             </div>
-        </div>
-
-    </div>  --}}
-
-    <div class="row justify-content-center" style="padding-top: 2%">
-        <div class="col-md-10 col-sm-7 col-lg-7 shadow"  style="background-color: white; padding :2%">
-            <form action="{{ route('annonce.search.post') }}" method="POST">
-                @csrf
-                <div class="row" style="margin-bottom: 2%">
-                    <div class="col-md-3">
-                        <div class="form-check inputtext" style="padding: 2%">
-                            <input class="form-check-input" style="margin-left:0px;" type="radio" checked name="type_annonce" value="1" id="offre">
-                            <label class="form-check-label" style="margin-left: 2rem" for="offre">
-                              <p class="option-buttion-label">Offres</p>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="form-check inputtext" style="padding: 2%">
-                            <input class="form-check-input" style="margin-left:0px;" type="radio" name="type_annonce" value="2" id="demande">
-                            <label class="form-check-label" style="margin-left: 2rem" for="demande">
-                              <p class="option-buttion-label">Demandes</p>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="inputtext" >
-                            <div class="row">
-                                <div class="col-1 text-center">
-                                    <div style="background-color: transparent;color:black; width: 30px;height: 30px;border-radius: 50px;margin-top: 4px">
-                                        <i  class="fa fa-search"></i>
-                                    </div>
-                                </div>
-                                <div class="col-10">
-                                    <input type="text" style="background-color: transparent; border:none" placeholder="Recherche" name="search" id="search">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row" style="margin-bottom: 2%">
-                    <div class="col-md-4">
-                        <div style="padding: 0px;padding-right: 2px">
-                            <select class="select-category" name="category" id="category">
-                                <option value="0"> &nbsp;&nbsp;&nbsp;Toutes catégorie</option>
-                                @foreach ($categories as $categorie)
-                                    <option value="{{$categorie->id}}"> &nbsp;&nbsp;&nbsp;{{$categorie->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div style="padding: 0px;padding-right: 2px">
-                            <select class="select-region" name="region" id="region" wire:model="region_query">
-                                <option value="0">&nbsp;&nbsp;&nbsp; Toutes Régions</option>
-                                @foreach (App\Models\region::all() as $region)
-                                    <option value="{{$region->id}}"> &nbsp;&nbsp;&nbsp;{{$region->name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4 shadow" style="border-radius: 1%!important" >
-                        <div class="wrapper" style="padding: 0px;">
-                            <div class="container-range">
-                                <div class="slider-track"></div>
-                                <input type="range" style="border: none !important" min="0" max="10000000" value="0" id="slider-min" oninput="slideMin()">
-                                <input type="range" style="border: none !important" min="0" max="10000000" value="10000000" id="slider-max" oninput="slideMax()">
-                                <span style="left: 0">
-                                    Min
-                                </span>
-                                <span style="right: 0;position: absolute;">
-                                    Max
-                                </span>
-                            </div>
-                            <div style="width: 100% !important;position: relative;font-weight: 200;margin-top: -2em;font-size: 0.9em">
-                                <span id="range-min" style="left: 0">
-                                    0
-                                </span>
-                                <span id="range-max" style="right: 0;position: absolute;">
-                                    100
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row justify-content-center text-center">
-                    <div class="col-md-2" style="background-color: #00a1f1; position: absolute; margin-top: 1.2%">
-                        <button type="submit" class="title-deposer" style="background-color: transparent;border: none; color:white;padding :4px; font-size: 1.2em"> Rechercher</button>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
     <style>
@@ -385,33 +210,55 @@
     </style>
 
     <div class="row justify-content-center" style="padding-top: 2%">
-        <div class="col-md-10 col-sm-7 col-lg-7 ">
+        <div class="col-md-10 col-sm-8 col-lg-8 ">
             <div class="row" style="" >
                 <div class="col-md-2" style="padding: 0px !important;margin-top:1%">
                     <div class="shadow" style="background-color: white;padding: 2%;">
-                        <h3 style="font-weight: 100;font-family: segouil;font-size: 1em;border-bottom: 1px solid rgba(0, 0, 0, 0.274)">Dernière annonces</h3>
+                        <h3 style="font-weight: 100;font-family: segouil;font-size: 1em;border-bottom: 1px solid rgba(0, 0, 0, 0.274)">Dernières Annonces</h3>
                         @foreach ($last_annonces as $last_annonce )
-                            <div class="row" style="min-height: 5em">
+                            <a class="row" href="{{route('annonce.show',[$last_annonce->id])}}" style="min-height: 5em">
                                 <div class="col-md-5">
                                     <div style="text-align: center;width: 100%;margin-bottom: 1%">
                                         <img  src="{{route('file.open',[$last_annonce->image->first()->image->folder,$last_annonce->image->first()->image->url])}}" style="max-height: 5em !important;max-width: 90%; align-content: center" alt="" srcset="">
                                     </div>
+
                                 </div>
                                 <div class="col-md-6">
                                     <p style="font-size: 0.7em">{{ $last_annonce->titre }}</p>
+                                    <p style="font-size: 0.7em;font-weight: bold">{{ number_format($last_annonce->prix, 0,',',' ') }} Ar</p>
                                 </div>
-                            </div>
+                            </a>
+                        @endforeach
+                    </div>
+                    <div class="shadow" style="background-color: white;padding: 2%;margin-top: 10%;margin-bottom: 10%">
+                        <h3 style="font-weight: 100;font-family: segouil;font-size: 1em;border-bottom: 1px solid rgba(0, 0, 0, 0.274)">Top Annonces</h3>
+                        @foreach ($top_annonces as $top_annonce )
+                            <a class="row" href="{{route('annonce.show',[$top_annonce->id])}}" style="min-height: 5em">
+                                <div class="col-md-5">
+                                    <div style="text-align: center;width: 100%;margin-bottom: 1%">
+                                        <img  src="{{route('file.open',[App\Models\annonce::findOrfail($top_annonce->id)->image->first()->image->folder,App\Models\annonce::findOrfail($top_annonce->id)->image->first()->image->url])}}" style="max-height: 5em !important;max-width: 90%; align-content: center" alt="" srcset="">
+                                    </div>
+
+                                </div>
+                                <div class="col-md-6">
+                                    <p style="font-size: 0.7em">{{ $top_annonce->titre }}</p>
+                                    <p style="font-size: 0.7em;font-weight: bold">{{ number_format($top_annonce->prix, 0,',',' ') }} Ar</p>
+                                </div>
+                            </a>
                         @endforeach
                     </div>
                 </div>
                 <div class="col-md-7">
                     @foreach ( $annonces as $annonce )
                         <div class="shadow annonce form-search" style="background-color: white;margin-top:2%;padding-left: 0px;padding-right: 0px;">
-                            <div class="row" style="padding: 2%">
-                                <div class="col-md-3" style="padding-left: 2%;padding-right: 0px;">
+                            <div class="row" style="padding-left: 2%">
+                                <div class="col-md-3" style="padding-left: 2%;padding-right: 0px;position: relative">
+                                    @if($annonce->payant == 1)
+                                    <span style="top:0;left: 0; background-color: #E70001 ;color:white;position: absolute; font-family: segouil;font-size: 0.8em;padding-left:5%;padding-right:5%">Annonce PRO</span>
+                                    @endif
                                     <img style="min-height: 125px; max-height: 125px;border-radius: 20px 0px 0px 20px;margin-left: 2%" src="{{route('file.open',[$annonce->image->first()->image->folder,$annonce->image->first()->image->url])}}" alt="">
                                 </div>
-                                <div class="col-md-9" style="position: relative;" >
+                                <div class="col-md-9" style="position: relative;padding-top: 2%;padding-bottom: 2%;padding-right: 2%" >
                                     <div class="row">
                                         <div class="col-md-6">
                                             <a class="mobil-padding" href="{{route('annonce.show',[$annonce->id])}}">
@@ -465,55 +312,61 @@
                             </div>
                         </div>
                     @endforeach
+                    <div class="page-pagination d-flex flex-row-reverse shadow" style="border: 0px;background-color: white;margin-bottom: 2%;margin-top: 2%">
+                        <ul class="pagination" style="border: 0px;padding-right: 5%">
+                            {{$annonces->links()}}
+                        </ul>
+                    </div>
                 </div>
-                <div class="col-md-3">
+                <div class="col-md-3" style="padding:0px">
                     @foreach ($annonces_payantes as $annonces_payante)
-                        <div class="text-center shadow annonce form-search"  style="background-color: white;margin-top:5%;padding:2%;padding-left: 4%;width: 90%;">
-                            <a href="{{route('annonce.show',[$annonces_payante->id])}}">
-                                <p style="font-weight: 100;font-family: segouil;margin-bottom: 0px;">{{ $annonces_payante->titre }}</p>
-                                <p  style="font-weight: bold;font-family: segouil;color:#00a1f1">{{ $annonces_payante->prix }}</p>
-                                <div>
-                                    <img style="min-height: 100px; max-height: 100px;border-radius: 20px 0px 0px 20px" src="{{route('file.open',[$annonces_payante->image->first()->image->folder,$annonces_payante->image->first()->image->url])}}" alt="">
-                                </div>
-                            </a>
+                        <div class="shadow "  style="background-color: white;margin-top:5%;padding:2%;width: 100%;padding-right: 10%;">
                             <div class="row">
-                                <div class="col-md-4 col-4">
-                                    @if (Auth::check())
-                                        @if(App\Models\favoris::where('user_id','=',Auth::user()->id)->where('annonce_id','=',$annonces_payante->id)->count() > 0)
-                                            <button class="button-favoris" style="background-color: transparent;border:none; box-shadow: none;font-family: segouil;font-size: 100;color:#00a1f1" wire:click="delete_favoris({{ $annonces_payante->id }})"><i style="color:#E70001;font-size: 1.2em" class="fa fa-heart"></i></button>
-                                        @else
-                                            <button class="button-favoris" style="background-color: transparent;border:none; box-shadow: none;padding-top: 2px; font-family: segouil;font-size: 100;color:#00a1f1" wire:click="add_favoris({{ $annonces_payante->id }})"><i class="icon-heart" style="font-size: 1.2em" style=""></i></button>
-                                        @endif
-                                    @endif
+                                <div class="col-md-6" style="position: relative">
+                                    <span style="top:0;left: 0; background-color: #E70001 ;color:white;position: absolute; font-family: segouil;font-size: 0.8em;padding-left:5%;padding-right:5%">Annonce PRO</span>
+                                    <img style="border-radius: 20px 0px 0px 20px; margin-top: 2em" src="{{route('file.open',[$annonces_payante->image->first()->image->folder,$annonces_payante->image->first()->image->url])}}" alt="">
                                 </div>
-                                <div class="col-md-4 col-4">
-                                    <button class="button-favoris" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent;border:none; box-shadow: none;font-family: segouil;font-weight: 100;color:#00a1f1">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16"><path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>
-                                    </button>
-                                    <div class="dropdown-menu social-buttons" aria-labelledby="dropdownMenuButton">
-                                        <a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('annonce.show',[$annonces_payante->id])) }}" style="color:#3b5998 "> <i class="fa fa-facebook-official"></i> Facebook</a>
-                                        <a class="dropdown-item" href="https://twitter.com/intent/tweet?url={{ urlencode(route('annonce.show',[$annonces_payante->id])) }}" style="color:#00a1f1"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+                                <div class="col-md-6">
+                                    <a href="{{route('annonce.show',[$annonces_payante->id])}}" style="font-weight: bold;font-family: segouil;margin-bottom: 0px;font-size: 0.8em;color:#00a1f1;margin-bottom: 2em">{{ $annonces_payante->titre }}</a>
+                                    <p  style="font-weight: 100;font-family: segouil;">{{ number_format($annonces_payante->prix, 0,',',' ') }} Ar</p>
+                                    <div class="row" style="margin-top: -1em;border-top: 1px solid rgba(0, 0, 0, 0.205)">
+                                        <div class="col-md-4 col-4">
+                                            @if (Auth::check())
+                                                @if(App\Models\favoris::where('user_id','=',Auth::user()->id)->where('annonce_id','=',$annonces_payante->id)->count() > 0)
+                                                    <button class="button-favoris" style="background-color: transparent;border:none; box-shadow: none;font-family: segouil;font-size: 100;color:rgba(0, 0, 0, 0.589)" wire:click="delete_favoris({{ $annonces_payante->id }})"><i style="color:#E70001;font-size: 1.2em" class="fa fa-heart"></i></button>
+                                                @else
+                                                    <button class="button-favoris" style="background-color: transparent;border:none; box-shadow: none;padding-top: 2px; font-family: segouil;font-size: 100;color:rgba(0, 0, 0, 0.589)" wire:click="add_favoris({{ $annonces_payante->id }})"><i class="icon-heart" style="font-size: 1.2em" style=""></i></button>
+                                                @endif
+                                            @endif
+                                        </div>
+                                        <div class="col-md-4 col-4">
+                                            <button class="button-favoris" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="background-color: transparent;border:none; box-shadow: none;font-family: segouil;font-weight: 100;color:rgba(0, 0, 0, 0.589)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-share" viewBox="0 0 16 16"><path d="M13.5 1a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zM11 2.5a2.5 2.5 0 1 1 .603 1.628l-6.718 3.12a2.499 2.499 0 0 1 0 1.504l6.718 3.12a2.5 2.5 0 1 1-.488.876l-6.718-3.12a2.5 2.5 0 1 1 0-3.256l6.718-3.12A2.5 2.5 0 0 1 11 2.5zm-8.5 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3zm11 5.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/></svg>
+                                            </button>
+                                            <div class="dropdown-menu social-buttons" aria-labelledby="dropdownMenuButton">
+                                                <a class="dropdown-item" href="https://www.facebook.com/sharer/sharer.php?u={{ urlencode(route('annonce.show',[$annonces_payante->id])) }}" style="color:#3b5998 "> <i class="fa fa-facebook-official"></i> Facebook</a>
+                                                <a class="dropdown-item" href="https://twitter.com/intent/tweet?url={{ urlencode(route('annonce.show',[$annonces_payante->id])) }}" style="color:#00a1f1"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 col-4">
+                                            <button style="background-color: transparent;border:none; box-shadow: none;font-family: segouil;font-weight: 100;color:rgba(0, 0, 0, 0.589)" data-Id="{{ $annonces_payante->id }} " data-toggle="modal" data-target="#signalement">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+                                                    <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-md-4 col-4">
-                                    <button style="background-color: transparent;border:none; box-shadow: none;font-family: segouil;font-weight: 100;color:#00a1f1" data-Id="{{ $annonces_payante->id }} " data-toggle="modal" data-target="#signalement">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
-                                            <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
-                                        </svg>
-                                    </button>
                                 </div>
                             </div>
                         </div>
 
                     @endforeach
+
                 </div>
+
             </div>
         </div>
-        <div class="page-pagination" style="border: 0px">
-            <ul class="pagination justify-content-center" style="border: 0px">
-                {{$annonces->links()}}
-            </ul>
-        </div>
+
     </div>
 
     <div class="modal fade" id="signalement" tabindex="-1" role="dialog" aria-labelledby="signalement" aria-hidden="true">

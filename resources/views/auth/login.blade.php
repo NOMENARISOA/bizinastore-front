@@ -39,14 +39,16 @@
     }
     .btn-validate{
         background-color: #f75314;
-        border-radius: 50px;
         color: white;
         font-weight: bold;
         padding-left: 5%;
         padding-right: 5%;
-        margin-top: 5%;
+        margin-top: 6%;
         text-transform :none;
         width: 100%;
+        font-family:segouil;
+        line-height:30px;
+        height:40px;
     }
     .remeber{
         font-size: 0.8em;
@@ -56,8 +58,13 @@
 </style>
 <div class="row justify-content-center" style="padding: 2%;">
     <div class="col-md-4 col-lg-3 shadow form-search"  style="background-color: white; padding :2%; border-radius: 20px">
-        <h4 class="text-center">Connexion / Inscription</h2>
-        <p class="text-center">Saisissez votre e-mail pour vous connecter ou pour vous s'inscir</p>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <img src="{{ asset("assets/images/logo.png") }}" style="width: 100%">
+            </div>
+        </div>
+        {{-- <h4 class="text-center" style="font-family: segouil;">Connexion </h2> --}}
+        <p class="text-center">Saisissez votre e-mail pour vous connecter</p>
             <form class="text-center" method="POST" action="{{ route('login') }}">
                 @csrf
                 <input class="inputtext" type="email" name="email" id="email" placeholder="E-mail" required>
@@ -81,13 +88,14 @@
                     @endif
                     </div>
                 </div>
-                <div class="row">
+                <div class="row justify-content-center">
                     <div class="col-md-6">
-                        <button type="submit" class="btn btn-validate" formaction="{{route('login')}}">Connexion</button>
+                        <button type="submit" class="btn btn-validate shadow" formaction="{{route('login')}}">Connexion</button>
                     </div>
-                    <div class="col-md-6">
-                        <button type="submit" class="btn btn-validate" formaction="{{route('users.store')}}" style="background-color: #00A1F1">S'inscrir</button>
-                    </div>
+
+                </div>
+                <div class="col-md-12" style="font-family: segouil">
+                   Vous n'avez pas de compte ? <a  class="" href="{{route('users.create')}}" style="color: #00A1F1">Inscrivez-vous</a>
                 </div>
         </form>
         <br>
