@@ -146,7 +146,7 @@
                     <div class="row align-items-center">
                         <div class="col-lg-3">
                             <div class="header-logo">
-                                <a href="{{url('/')}}"><img src="{{asset('assets/images/logo.jpg')}}" style="width: 20%" alt="logo_bizinastore"></a>
+                                <a href="{{url('/')}}"><img src="{{asset('assets/images/logo_footer.jpg')}}" style="width: 20%" alt="logo_bizinastore"></a>
                             </div>
                         </div>
                         <div class="col-lg-3 position-static">

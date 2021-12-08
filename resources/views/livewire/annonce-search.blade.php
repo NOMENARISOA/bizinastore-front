@@ -180,7 +180,7 @@
                                 0
                             </span>
                             <span id="range-max" style="right: 0;position: absolute;">
-                                100
+                                10 000 000 et +
                             </span>
                         </div>
                     </div>

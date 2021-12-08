@@ -288,13 +288,7 @@
 
 <!--New Product End-->
 <script src="{{ asset("assets/js/range-price.js") }}"></script>
-<script>
-    var myCarousel = document.querySelector('#carouselExampleCaptions')
-        var carousel = new bootstrap.Carousel(myCarousel, {
-        interval: 2000,
-        wrap: false
-    });
-</script>
+
 <script>
     $('#region_map').on('change', function() {
         var value = $(this).val();

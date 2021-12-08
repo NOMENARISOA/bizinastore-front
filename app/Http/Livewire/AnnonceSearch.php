@@ -63,7 +63,6 @@ class AnnonceSearch extends Component
         $this->prix_min = $this->prix_min_query;
 
         $this->render();
-         dd($this->type_annonce_query . " " . $this->region_query . " " . $this->type_annonce_query . " " . $this->search_query." ". $this->prix_min_query ." ". $this->prix_max_query);
     }
 /*
     public function addCheckBoxySubcategoryValue($sub_category_id,$sub_category_value_id){
@@ -99,11 +98,11 @@ class AnnonceSearch extends Component
     public function render()
     {
             $annonces = annonce::where('etat_annonce','=','1')->where('status','=','1');
-
+            //dd($this->category);
             if($this->type_annonce != 0){
                 $annonces = $annonces->where('type_annonce_id','=',$this->type_annonce);
             }
-            if($this->category != 0){
+            if($this->category != 0 ){
                 $annonces = $annonces->where('categorie_id','=',$this->category);
             }
             if($this->region != 0){
@@ -112,6 +111,13 @@ class AnnonceSearch extends Component
             if(! empty($this->search)){
                 $annonces = $annonces->where('titre','LIKE','%'.$this->search.'%');
             }
+            if(! empty($this->prix_min) && $this->prix_min != 0){
+                $annonces = $annonces->where('prix','>', $this->prix_min);
+            }
+            if(! empty($this->prix_max) && $this->prix_max != 0){
+                $annonces = $annonces->where('prix','<', $this->prix_max);
+            }
+
            // $top_annonces = view_annonce::with("annonce")->groupby("annonce_id")->select(DB::raw('count(*) as total, annonce_id'))->select(DB::raw('annonces.*'))->orderBy("total","DESC")->get()->take(2);
            $top_annonces = DB::table('annonces')->join("view_annonces","annonces.id","=","view_annonces.annonce_id")->orderBy(DB::raw('count(view_annonces.id)'), 'DESC')->groupBy("annonce_id")->select("annonces.*")->get()->take(5);
         //    "selectRaw('count(view_annonces.id) as total')->groupBy("annonce_id")->get()"

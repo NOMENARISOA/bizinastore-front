@@ -80,7 +80,7 @@ Route::get("callback/{provider}", [App\Http\Controllers\SocialiteController::cla
 // Voir file
 Route::get('/{directory}/{filename}', function ($directory,$filename)
 {
-    $path = public_path('storage/' .$directory.'/'. $filename);
+    $path = public_path($directory.'/'. $filename);
     if (!File::exists($path)) {
         abort(404);
     }
