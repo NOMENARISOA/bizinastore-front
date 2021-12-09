@@ -6,11 +6,12 @@
     h3{
         font-family: segouil !important;
         font-weight: 900 !important;
-        color: #00a1f1
+        color: #FFBB02
     }
     .inputtext{
+
         border: none !important;
-        border-bottom: 1px solid #00a1f1 !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.15) !important;
         font-family: segouil;
         font-weight: 100 !important;
         font-size: 1em !important;
@@ -24,12 +25,13 @@
         text-transform :none;
     }
     .inputselect{
-        border-bottom: 1px solid #00a1f1 !important;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.15) !important;
         margin-top: -5%;
         background-color: transparent;
     }
     textarea{
-        border: 1px solid #00a1f1 !important;
+        border-radius: 0.5em;
+        border: 1px solid rgba(0, 0, 0, 0.15) !important;
     }
     .dropify-wrapper{
         border : none !important;
@@ -48,7 +50,7 @@
     .button-valider{
 
         border: none;
-        border-radius: 30px !important;
+        border-radius: 0.5em !important;
         z-index: 10;
         width: max-content;
         font-family: segouil;
@@ -70,11 +72,11 @@
             <div class="row" >
                 <h3 style="margin-bottom: 5%" >Déposer une annonce</h3>
                 <div class="col-md-6">
-                    <label for="titre">Titre de lannonce</label>
+                    <label for="titre">Titre de lannonce (*)</label>
                     <input class="inputtext" type="text" name="titre" id="titre" placeholder="Entre votre titre" required>
                 </div>
                 <div class="col-md-6">
-                    <label for="category">Catégorie</label>
+                    <label for="category">Catégorie (*)</label>
                     <select class="inputselect" name="category" id="category">
                         @foreach ($categories as $category )
                             <option value="{{$category->id}}">{{$category->name}}</option>
@@ -85,7 +87,7 @@
             </div>
             <div class="row" id="sub_category" style="margin-top: 2%"></div>
             <div class="row" style="margin-top: 2%">
-                <label for="">Ajoutez des photos</label>
+                <label for="">Ajoutez des photos (*)</label>
                 <div class="col-md-3">
                     <div class="form-group">
                         <input type="file" class="dropify required"  data-default-file="{{asset('assets/images/product-single/product-1.jpg')}}" name="image[]" required>
@@ -109,13 +111,13 @@
             </div>
             <div class="row" style="margin-top: 2%">
                 <div class="col-md-12">
-                    <label for="description">Description</label>
+                    <label for="description">Description (*)</label>
                     <textarea id="description" name="description" style="min-height: 200px" required></textarea>
                 </div>
             </div>
             <div class="row" style="margin-top: 2%" >
                 <div class="col-md-6">
-                    <label for="prix">Prix</label>
+                    <label for="prix">Prix (*)</label>
                     <input class="inputtext" type="text" name="prix" id="prix" placeholder="Indiquez votre prix" required>
                 </div>
                 <div class="col-md-6">
@@ -137,13 +139,13 @@
                     </select>
                 </div>
                 <div class="col-md-6">
-                    <label for="email">Indiquez votre adresse mail</label>
+                    <label for="email">Indiquez votre adresse mail (*)</label>
                     <input class="inputtext" type="email" name="email" id="email" placeholder="E-mail" value="{{$annonceur->email}}" required>
                 </div>
             </div>
             <div class="row" style="margin-top: 2%;margin-bottom: 5%" >
                 <div class="col-md-6">
-                    <label for="phone">Indiquez votre numéro de téléphone</label>
+                    <label for="phone">Indiquez votre numéro de téléphone (*)</label>
                     <input class="inputtext" type="text" name="phone" id="phone" placeholder="Numéro téléphone" value="{{$annonceur->phone}}" required>
                 </div>
             </div>
@@ -152,7 +154,7 @@
 </div>
 <div class="row justify-content-center" style="margin-bottom:2%">
   <div class="text-center ">
-    <button type="submit" class="btn button-valider" style="background-color: #708574">Publier Gratuit</button>
+    <button type="submit" class="btn button-valider" style="background-color: #FFBB02">Publier Gratuit</button>
     <button type="submit" class="btn button-valider" formaction="{{ route('annonce.payant') }}" style="background-color: #E70001 ">Publier Annonce Payante </button>
   </div>
 </div>

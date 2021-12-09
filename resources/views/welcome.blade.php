@@ -24,8 +24,9 @@
      }
 
      .inputtext{
-
-        background-color: #ebebeb !important;
+        border:1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 0.5em;
+        background-color: #fff !important;
      }
      .option-buttion-label{
          padding-top:0.45rem !important;
@@ -37,14 +38,18 @@
 
     }
      .select-category{
-        background-color: #ebebeb !important;
+        border:1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 0.5em;
+        background-color: #FFF !important;
         width: 100% !important;
         height: 40px;
         padding-top: 8px !important;
         background: url('http://localhost:8000/assets/icon/list.svg') no-repeat left;
      }
      .select-region{
-        background-color: #ebebeb !important;
+        border:1px solid rgba(0, 0, 0, 0.15);
+        border-radius: 0.5em;
+        background-color: #fff !important;
         width: 100% !important;
         height: 40px;
         padding-top: 8px !important;
@@ -57,20 +62,20 @@
  @include('layouts.carousel')
 
 <div class="row justify-content-center" style="padding: 2%">
-    <div class="col-md-8 col-sm-8 col-lg-8 shadow"  style="background-color: white; padding :2%">
+    <div class="col-md-8 col-sm-8 col-lg-8 shadow rounded"  style="background-color: white; padding :2%">
         <form action="{{ route('annonce.search.post') }}" method="POST">
             @csrf
             <div class="row" style="margin-bottom: 2%">
                 <div class="col-md-3">
-                    <div class="form-check inputtext" style="padding: 2%">
-                        <input class="form-check-input" style="margin-left:0px;" type="radio" checked name="type_annonce" value="1" id="offre">
+                    <div class="form-check inputtext " style="padding: 2%">
+                        <input class="form-check-input " style="margin-left:0px;" type="radio" checked name="type_annonce" value="1" id="offre">
                         <label class="form-check-label" style="margin-left: 2rem" for="offre">
                           <p class="option-buttion-label">Offres</p>
                         </label>
                     </div>
                 </div>
                 <div class="col-md-3">
-                    <div class="form-check inputtext" style="padding: 2%">
+                    <div class="form-check inputtext " style="padding: 2%">
                         <input class="form-check-input" style="margin-left:0px;" type="radio" name="type_annonce" value="2" id="demande">
                         <label class="form-check-label" style="margin-left: 2rem" for="demande">
                           <p class="option-buttion-label">Demandes</p>
@@ -78,10 +83,10 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="inputtext" >
+                    <div class="inputtext " >
                         <div class="row">
                             <div class="col-1 text-center">
-                                <div style="background-color: transparent;color:black; width: 30px;height: 30px;border-radius: 50px;margin-top: 4px">
+                                <div style="background-color: transparent;color:rgba(0, 0, 0, 0.383); width: 30px;height: 30px;border-radius: 50px;margin-top: 4px">
                                     <i  class="fa fa-search"></i>
                                 </div>
                             </div>
@@ -95,7 +100,7 @@
             <div class="row" style="margin-bottom: 2%">
                 <div class="col-md-4">
                     <div style="padding: 0px;padding-right: 2px">
-                        <select class="select-category" name="category" id="category">
+                        <select class="select-category " name="category" id="category">
                             <option value="0"> &nbsp;&nbsp;&nbsp;Toutes catégorie</option>
                             @foreach ($categories as $categorie)
                                 <option value="{{$categorie->id}}"> &nbsp;&nbsp;&nbsp;{{$categorie->name}}</option>
@@ -105,7 +110,7 @@
                 </div>
                 <div class="col-md-4">
                     <div style="padding: 0px;padding-right: 2px">
-                        <select class="select-region" name="region" id="region" wire:model="region_query">
+                        <select class="select-region " name="region" id="region" wire:model="region_query">
                             <option value="0">&nbsp;&nbsp;&nbsp; Toutes Régions</option>
                             @foreach (App\Models\region::all() as $region)
                                 <option value="{{$region->id}}"> &nbsp;&nbsp;&nbsp;{{$region->name}}</option>
@@ -113,12 +118,12 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 shadow" style="border-radius: 1%!important" >
+                <div class="col-md-4 shadow rounded" >
                     <div class="wrapper" style="padding: 0px;">
                         <div class="container-range">
                             <div class="slider-track"></div>
-                            <input type="range" style="border: none !important" min="0" max="10000000" value="0" id="slider-min" oninput="slideMin()">
-                            <input type="range" style="border: none !important" min="0" max="10000000" value="10000000" id="slider-max" oninput="slideMax()">
+                            <input type="range" style="border: none !important;padding:0px" min="0" max="10000000" value="0" id="slider-min" oninput="slideMin()">
+                            <input type="range" style="border: none !important;padding:0px" min="0" max="10000000" value="10000000" id="slider-max" oninput="slideMax()">
                             <span style="left: 0">
                                 Min
                             </span>
@@ -138,7 +143,7 @@
                 </div>
             </div>
             <div class="row justify-content-center text-center">
-                <div class="col-md-2" style="background-color: #00a1f1; position: absolute; margin-top: 1.2%">
+                <div class="col-md-2 rounded shadow" style="background-color: #00a1f1; position: absolute; margin-top: 1.2%">
                     <button type="submit" class="title-deposer" style="background-color: transparent;border: none; color:white;padding :4px; font-size: 1.2em"> Rechercher</button>
                 </div>
             </div>
@@ -146,7 +151,7 @@
     </div>
 </div>
 <div class="row justify-content-center" style="padding: 2%">
-    <div class="col-md-8 col-sm-8 col-lg-8 shadow"  style="background-color: white; ">
+    <div class="col-md-8 col-sm-8 col-lg-8 shadow rounded"  style="background-color: white; ">
         <h3 style="font-family: segouil;font-weight: 100 !important;margin-bottom: 0px !important;border-bottom: 1px solid rgba(122, 120, 120, 0.185);" >Catégories les plus populaires</h3>
         @livewireStyles
             <livewire:topcategory/>
@@ -161,7 +166,7 @@
             <div class="col-md-6 ">
                 <div class="row justify-content-center" >
                    <div class="col-md-4">
-                        <span style="font-weight: bold;color:#000;font-size: 1.4em"> Région :</span><br>
+                        <span style="font-weight: bold;color:#00a1f1;font-size: 1.4em"> Région :</span><br>
                         <div style="padding: 0px;padding-right: 2px;margin-top: 4%">
                             <select class="shadow" name="region_map" id="region_map" style="border-radius: 10px;min-width: 300px">
                                 @foreach (App\Models\region::all() as $region)
@@ -179,12 +184,12 @@
 
                 }
                 .map__image path{
-                    fill:#00a1f1;
+                    fill:#8f90918a;
                     stroke:#fff;
                     stroke-width: 2px
                 }
                 .map__image path:hover{
-                    fill:#00BB26;
+                    fill:#FFBB02;
                 }
             </style>
             <div class="col-md-6 " >
@@ -277,14 +282,14 @@
     </div>
 </div>
 
-<div style="background-color: white;width: 100%;padding: 1%">
+{{--  <div style="background-color: white;width: 100%;padding: 1%">
     <div class="row">
         <div class="col-md-7 text-right">
         </div>
         <div class="col-md-5">
         </div>
     </div>
-</div>
+</div>  --}}
 
 <!--New Product End-->
 <script src="{{ asset("assets/js/range-price.js") }}"></script>

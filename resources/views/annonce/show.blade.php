@@ -14,7 +14,7 @@
         <!--Shop Single Start-->
         <span style="color: #00A1F1;font-weight: bold">{{ $annonce->region->name }} > {{ $annonce->categorie->name }} > {{ $annonce->titre }} </span>
 
-        <div class="row justify-content-center" style="background-color: #FFF">
+        <div class="row justify-content-center rounded" style="background-color: #FFF">
 
             <div class="col-lg-6 col-md-8">
                 <div class="shop-image" style="margin-top: 20px !important; width: 100%; height: 60%; margin-bottom: 30px">
@@ -27,7 +27,7 @@
                                 <div class="swiper-wrapper">
                                     @foreach ($annonce->image as $image )
                                         <div class="swiper-slide single-product-thumb" style="max-width: 100px; height: 100px; margin: 0px">
-                                            <a href="#" style="width: 100%; height: 100%;border: 1px solid rgba(0, 0, 0, 0.123)" data-image="{{route('file.open',[$image->image->folder,$image->image->url])}}">
+                                            <a href="#" style="width: 100%; height: 100%;border: 1px solid rgba(41, 41, 41, 0.15)" data-image="{{route('file.open',[$image->image->folder,$image->image->url])}}">
                                                 <img style="width: 100%; height: 100%;" src="{{route('file.open',[$image->image->folder,$image->image->url])}}" alt="">
                                             </a>
                                         </div>
@@ -89,7 +89,7 @@
                                 <button type="submit" class="title-deposer" style="background-color: #FFBB02 ; font-family: segouil; width: 100%; height: 50px; border: none; color:white;padding :4px; font-size: 1.2em;"> Acheter</button>
                             </div>  --}}
                             <div class="col align-self-end">
-                                <button type="button" class="title-deposer shadow" data-toggle="modal" data-target="#message" style="background-color: #FFBB02 ; font-family: segouil; width: max-content; height: 50px; border: none; color:white;padding :4px; font-size: 1.2em;border-radius: 20px;padding-left: 2%;padding-right: 2%"> Envoyer un message</button>
+                                <button type="button" class="title-deposer shadow rounded" data-toggle="modal" data-target="#message" style="background-color: #FFBB02 ; font-family: segouil; width: max-content; height: 50px; border: none; color:white;padding :4px; font-size: 1.2em;padding-left: 2%;padding-right: 2%"> Envoyer un message</button>
                             </div>
                         </div>
                     </div>

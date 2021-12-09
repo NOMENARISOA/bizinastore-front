@@ -1,7 +1,7 @@
 @extends('layouts.template')
 @section('content')
 <style>
-   #search_query ::placeholder{
+   .search_query::placeholder{
         color: white !important;
         font-family: segouil;
         font-weight: 100;
@@ -14,7 +14,7 @@
     }
     .forum-list{
         background-color: white;
-        border-radius: 20px;
+        border-radius: 0.5em;
         padding-top: 1%;
         padding-left: 3%;
         padding-bottom: 2%;

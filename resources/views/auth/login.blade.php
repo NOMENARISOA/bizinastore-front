@@ -11,12 +11,18 @@
         font-weight: 100;
     }
     .inputtext{
+        font-family: segouil !important;
+        border-radius: 0.5em !important;
         border: none !important;
-        border-bottom: 1px solid green !important;
+        border: 1px solid rgba(0, 0, 0, 0.15) !important;
         font-weight: 100 !important;
         font-size: 1em !important;
         width: 90%;
         margin-bottom: 3%;
+    }
+
+    .inputtext:focus{
+        border: 1px solid #FFBB02 !important;
     }
     label{
         font-weight: 100;
@@ -38,6 +44,7 @@
         padding: 0px;
     }
     .btn-validate{
+        border-radius: 0.5em;
         background-color: #f75314;
         color: white;
         font-weight: bold;
@@ -67,7 +74,7 @@
         <p class="text-center">Saisissez votre e-mail pour vous connecter</p>
             <form class="text-center" method="POST" action="{{ route('login') }}">
                 @csrf
-                <input class="inputtext" type="email" name="email" id="email" placeholder="E-mail" required>
+                <input class="inputtext" type="email" name="email" id="email" placeholder="E-mail " required>
                 <input class="inputtext" type="password" name="password" id="password" placeholder="Mot de passe" required>
                 <div class="row" style="margin-top: 5%">
                     <div class="col-md-6" >

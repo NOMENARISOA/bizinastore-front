@@ -100,6 +100,9 @@
             font-family: segouil;
             color: black !important;
         }
+        .rounded{
+            border-radius: 0.5em !important;
+        }
     </style>
     @if(session()->has('error'))
         <script>
@@ -183,7 +186,11 @@
                     border-radius: 0px 20px 20px 0px;
                     background-color: #00a1f1;
                     border:none;
-                    min-width: 50px;
+                    max-width: 20px;
+
+                }
+                .leftheader:hover{
+                    background-color: #82bd01 !important;
                 }
             </style>
             <div class="buttonMenuHeader" style="position: fixed;z-index: 1;font-family: segouil;">
@@ -205,8 +212,6 @@
                 <div style="margin-top: 2%">
                     <a href="{{route('users.home')}}" class="btn btn-success leftheader" data-toggle="tooltip" title="Mon compte"><i class="fa fa-user-circle-o"></i></a>
                 </div>
-
-
             </div>
         </div>
         <!--Header Section End-->

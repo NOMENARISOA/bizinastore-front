@@ -1,19 +1,17 @@
 <div>
-    <div class="row" style="padding-top: 2%;padding-left: 5%">
-        <div class="col-md-2 shadow form-search"  style="background-color: #00A1F1;border-radius: 20px;">
+    <div class="row row justify-content-between" style="padding-top: 2%;padding-left: 5%;padding-right: 8%">
+        <div class="col-md-1 shadow form-search rounded"  style="background-color: #00A1F1;">
             <h3 class="text-center" style="font-family: segouil; font-weight: 100;color:white" >Forum</h3>
         </div>
-        <div class="col-md-6">
 
-        </div>
-        <div class="col-md-3 shadow form-search"  style="background-color: #00A1F1;border-radius: 20px;padding-left: 1%;">
-            <input type="text" name="search_query" id="search_query" wire:model.debounce.500ms="search" placeholder="Recherche" style="background-color: transparent;border:0px;width: 100%; font-family: segouil;color:white;font-weight: 100; font-size: 1.2em">
+        <div class="col-md-3  shadow form-search rounded"  style="background-color: #00A1F1;padding-left: 1%;">
+            <input type="text" class="search_query" name="search_query" id="search_query" wire:model.debounce.500ms="search" placeholder="Recherche" style="background-color: transparent;border:0px;width: 100%; font-family: segouil;color:white;font-weight: 100; font-size: 1.2em">
         </div>
     </div>
-    <div class="row" style="padding-left: 5%;padding-top: 1%;padding-right: 8%">
-        <div class="col-md-2"></div>
-        <div class="col-md-8"></div>
-        <div class="col-md-2 shadow form-search"  style="background-color: #FFBB02;border-radius: 20px;padding-left: 1%;">
+    <div class="row justify-content-end " style="padding-left: 5%;padding-top: 1%;padding-right: 8%">
+        {{--  <div class="col-md-2"></div>  --}}
+        {{--  <div class="col-md-8"></div>  --}}
+        <div class="col-md-2 align-self-end shadow form-search rounded"  style="background-color: #FFBB02;padding-left: 1%;">
             <button class="btn" data-toggle="modal" data-target="#forum" style="width: 100%; font-weight: 100;font-family: segouil; color: white;font-size: 1.2em;text-transform: none;padding :0px;">Créer un sujet</button>
         </div>
     </div>

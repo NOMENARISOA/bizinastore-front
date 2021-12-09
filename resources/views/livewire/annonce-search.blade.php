@@ -15,15 +15,16 @@
            font-size: 0.9em !important
         }
         .form-search{
-            /*border-radius: 20px*/
+            border-radius: 0.5em
         }
         .shadow{
            box-shadow: 10px 5px 5px black;
         }
 
         .inputtext{
-
-           background-color: #ebebeb !important;
+           border:1px solid rgba(0, 0, 0, 0.15);
+           border-radius: 0.5em;
+           background-color: #fff !important;
         }
         .option-buttion-label{
             padding-top:0.45rem !important;
@@ -35,14 +36,18 @@
 
        }
         .select-category{
-           background-color: #ebebeb !important;
+           border:1px solid rgba(0, 0, 0, 0.15);
+           border-radius: 0.5em;
+           background-color: #FFF !important;
            width: 100% !important;
            height: 40px;
            padding-top: 8px !important;
            background: url('http://localhost:8000/assets/icon/list.svg') no-repeat left;
         }
         .select-region{
-           background-color: #ebebeb !important;
+           border:1px solid rgba(0, 0, 0, 0.15);
+           border-radius: 0.5em;
+           background-color: #fff !important;
            width: 100% !important;
            height: 40px;
            padding-top: 8px !important;
@@ -108,7 +113,7 @@
         })
     </script>
     <div class="row justify-content-center" style="padding-top: 2%">
-        <div class="col-md-10 col-sm-8 col-lg-8 shadow"  style="background-color: white; padding :2%">
+        <div class="col-md-10 col-sm-8 col-lg-8 shadow rounded"  style="background-color: white; padding :2%">
             <div class="row" style="margin-bottom: 2%">
                 <div class="col-md-3">
                     <div class="form-check inputtext" style="padding: 2%">
@@ -162,12 +167,12 @@
                         </select>
                     </div>
                 </div>
-                <div class="col-md-4 shadow" style="border-radius: 1%!important" >
+                <div class="col-md-4 shadow rounded">
                     <div class="wrapper" style="padding: 0px;">
                         <div class="container-range">
                             <div class="slider-track"></div>
-                            <input type="range" style="border: none !important" min="0" max="10000000" wire:model.defer="prix_min_query" value="0" id="slider-min" oninput="slideMin()">
-                            <input type="range" style="border: none !important" min="0" max="10000000" wire:model.defer="prix_max_query" value="10000000" id="slider-max" oninput="slideMax()">
+                            <input type="range" style="border: none !important;padding:0px" min="0" max="10000000" wire:model.defer="prix_min_query" value="0" id="slider-min" oninput="slideMin()">
+                            <input type="range" style="border: none !important;padding:0px" min="0" max="10000000" wire:model.defer="prix_max_query" value="10000000" id="slider-max" oninput="slideMax()">
                             <span style="left: 0">
                                 Min
                             </span>
@@ -187,7 +192,7 @@
                 </div>
             </div>
             <div class="row justify-content-center text-center">
-                <div class="col-md-2" style="background-color: #00a1f1; position: absolute; margin-top: 1.2%">
+                <div class="col-md-2 rounded shadow" style="background-color: #00a1f1; position: absolute; margin-top: 1.2%">
                     <button wire:click="search" class="title-deposer" style="background-color: transparent;border: none; color:white;padding :4px; font-size: 1.2em"> Rechercher ({{ $annonces->count() }} résultats)</button>
                 </div>
             </div>
@@ -213,7 +218,7 @@
         <div class="col-md-10 col-sm-8 col-lg-8 ">
             <div class="row" style="" >
                 <div class="col-md-2" style="padding: 0px !important;margin-top:1%">
-                    <div class="shadow" style="background-color: white;padding: 2%;">
+                    <div class="shadow  rounded" style="background-color: white;padding: 2%;">
                         <h3 style="font-weight: 100;font-family: segouil;font-size: 1em;border-bottom: 1px solid rgba(0, 0, 0, 0.274)">Dernières Annonces</h3>
                         @foreach ($last_annonces as $last_annonce )
                             <a class="row" href="{{route('annonce.show',[$last_annonce->id])}}" style="min-height: 5em">
@@ -230,7 +235,7 @@
                             </a>
                         @endforeach
                     </div>
-                    <div class="shadow" style="background-color: white;padding: 2%;margin-top: 10%;margin-bottom: 10%">
+                    <div class="shadow rounded" style="background-color: white;padding: 2%;margin-top: 10%;margin-bottom: 10%">
                         <h3 style="font-weight: 100;font-family: segouil;font-size: 1em;border-bottom: 1px solid rgba(0, 0, 0, 0.274)">Top Annonces</h3>
                         @foreach ($top_annonces as $top_annonce )
                             <a class="row" href="{{route('annonce.show',[$top_annonce->id])}}" style="min-height: 5em">
@@ -312,11 +317,13 @@
                             </div>
                         </div>
                     @endforeach
+                    @if($annonces->count() > 5)
                     <div class="page-pagination d-flex flex-row-reverse shadow" style="border: 0px;background-color: white;margin-bottom: 2%;margin-top: 2%">
                         <ul class="pagination" style="border: 0px;padding-right: 5%">
                             {{$annonces->links()}}
                         </ul>
                     </div>
+                    @endif
                 </div>
                 <div class="col-md-3" style="padding:0px">
                     @foreach ($annonces_payantes as $annonces_payante)
@@ -359,11 +366,8 @@
                                 </div>
                             </div>
                         </div>
-
                     @endforeach
-
                 </div>
-
             </div>
         </div>
 

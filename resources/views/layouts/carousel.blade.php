@@ -1,4 +1,4 @@
-<div id="carouselExampleIndicators" style="max-height: 400px" class="carousel slide" data-ride="carousel">
+<div id="carouselExampleIndicators" style="max-height: 300px" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
         @php
         $i = 0;
@@ -16,7 +16,7 @@
         @endphp
         @foreach (App\Models\carousel::all() as $carousel )
             <div class="carousel-item @if($i == 0)active @endif">
-                <img class="d-block w-100" style="max-height: 400px" src="{{ route('file.open',['carousel',$carousel->url])}}" alt="Second slide">
+                <img class="d-block w-100" style="max-height: 300px" src="{{ route('file.open',['carousel',$carousel->url])}}" alt="Second slide">
             </div>
             @php
                 $i ++;

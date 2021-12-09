@@ -1,58 +1,6 @@
 @extends('layouts.template')
 
 @section('content')
-{{-- <div class="container">
-    <div class="row justify-content-center" style="padding: 2%;">
-        <div class="col-md-4 col-lg-3 shadow form-search"  style="background-color: white; padding :2%; border-radius: 20px">
-            <h4 class="text-center">Connexion </h2>
-            <p class="text-center">Saisissez votre e-mail pour vous connecter ou pour vous s'inscir</p>
-                <form class="text-center" method="POST" action="{{ route('login') }}">
-                    @csrf
-                    <input class="inputtext" type="email" name="email" id="email" placeholder="E-mail" required>
-                    <input class="inputtext" type="password" name="password" id="password" placeholder="Mot de passe" required>
-                    <div class="row" style="margin-top: 5%">
-                        <div class="col-md-6" >
-                            <div class="row">
-                                <div class="col-md-1">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-                                </div>
-                                <div class="col-md-9 text-left">
-                                    <label for="remember" class="remeber">Se souvenir de moi</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6" >
-                            @if (Route::has('password.request'))
-                            <a class="btn btn-link" href="{{ route('password.request') }}">
-                                Mot de passe oublié ?
-                            </a>
-                        @endif
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <button type="submit" class="btn btn-validate" formaction="{{route('login')}}">Connexion</button>
-                        </div>
-                        <div class="col-md-6">
-                            <button type="submit" class="btn btn-validate" formaction="{{route('users.store')}}" style="background-color: #00A1F1">S'inscrir</button>
-                        </div>
-                    </div>
-            </form>
-            <br>
-            <div class="row justify-content-center">
-                <div class="col-md-2">
-                    <a href="{{ route('socialite.redirect', 'google') }}" title="Connexion/Inscription avec Google" class="btn" style="background-color: #f75314;color:white;font-family: segouil;font-weight: 100;padding-left: 2%;padding-right: 2%;font-size: 0.7em;min-width:50px;border-radius:50%"> <i class="fa fa-google"></i></a>
-
-                </div>
-                <div class="col-md-2">
-                    <a href="{{ route('socialite.redirect', 'facebook') }}" title="Connexion/Inscription avec Facebook" class="btn" style="background-color: #3b5998;color:white;font-family: segouil;font-weight: 100;padding-left: 2%;padding-right: 2%;font-size: 0.7em;min-width:50px;border-radius:50%"> <i class="fa fa-facebook"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> --}}
-
-@section('content')
 <style>
     h4{
         font-weight: bold;
@@ -63,12 +11,16 @@
         font-weight: 100;
     }
     .inputtext{
-        border: none !important;
-        border-bottom: 1px solid rgba(0, 128, 0, 0.322) !important;
+        border-radius: 0.5em !important;
+        border: 1px solid rgba(0, 0, 0, 0.15) !important;
         font-weight: 100 !important;
         font-size: 1em !important;
+        font-family: segouil !important;
         width: 90%;
         margin-bottom: 3%;
+    }
+    .inputtext:focus{
+        border: 1px solid #FFBB02 !important;
     }
     label{
         font-weight: 100;
@@ -86,9 +38,9 @@
         color: #00A1F1;
     }
 
-    .btn {
+    {{--  .btn {
         padding: 0px;
-    }
+    }  --}}
     .btn-validate{
         background-color: #00A1F1;
        // border-radius: 50px;
@@ -120,22 +72,16 @@
         <p class="text-center" style="font-family: segouil; margin-top: 2%">Eo adducta re per Isauriam, rege Persarum bellis finitimis inligato repellenteque a conlimitiis suis ferocissimas gentes, quae mente quadam versabili hostiliter</p>
             <form class="text-center" method="POST" action="{{ route('login') }}">
                 @csrf
-                <div class="row">
-                    <div class="col-md-6">
-                        <input class="inputtext" type="text" name="name" id="name" placeholder="Votre Nom" required>
-                    </div>
-                    <div class="col-md-6">
-                        <input class="inputtext" type="text" name="lastname" id="lastname" placeholder="Votre Prénom" required>
-                    </div>
-                </div>
-                <input class="inputtext" type="email" name="email" id="email" placeholder="E-mail" required>
-                <input class="inputtext" type="text" name="phone" id="phone" placeholder="Numéro téléphone" required>
-                <input class="inputtext" type="password" name="password" id="password" placeholder="Mot de passe" required>
-                <input class="inputtext" type="password" name="confirm" id="confirm" placeholder="Confirmer votre mot de passe" required>
+                <input class="inputtext" type="text" name="name" id="name" placeholder="Votre Nom (*)" required>
+                <input class="inputtext" type="text" name="lastname" id="lastname" placeholder="Votre Prénom (*)" required>
+                <input class="inputtext" type="email" name="email" id="email" placeholder="E-mail (*)" required>
+                <input class="inputtext" type="text" name="phone" id="phone" placeholder="Numéro téléphone (*)" required>
+                <input class="inputtext" type="password" name="password" id="password" placeholder="Mot de passe (*)" required>
+                <input class="inputtext" type="password" name="confirm" id="confirm" placeholder="Confirmer votre mot de passe (*)" required>
 
                 <div class="row justify-content-center">
                     <div class="col-md-6">
-                        <button type="submit" class="btn btn-validate shadow" formaction="{{route('users.store')}}">S'inscrire</button>
+                        <button type="submit" class="btn btn-validate shadow rounded" formaction="{{route('users.store')}}">S'inscrire</button>
                     </div>
                 </div>
                 <div class="col-md-12" style="font-family: segouil">

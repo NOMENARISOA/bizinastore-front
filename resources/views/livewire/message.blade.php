@@ -1,7 +1,7 @@
 <div>
    <div class="row justify-content-center" style="padding: 2%; min-height: 600px;max-height: 600px">
         <div class="col-md-3">
-            <div class="shadow" style="background-color: #00A1F1; padding :2%; border-radius: 20px; max-height: 10%">
+            <div class="shadow" style="background-color: #00A1F1; padding :2% 5% 2% 5%; border-radius: 20px; max-height: 10%;width: max-content;">
                 <h2 class="text-center" style="color:white;">Conversations</h2>
             </div>
 

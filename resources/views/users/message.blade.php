@@ -24,9 +24,7 @@
         margin-top: -8%;
 
     }
-    i{
-        color: #00A1F1;
-    }
+
     a i:hover{
         color:green;
     }
