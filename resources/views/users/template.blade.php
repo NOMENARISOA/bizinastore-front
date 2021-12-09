@@ -54,7 +54,7 @@
 
 </style>
 <div class="row justify-content-center" style="padding: 2%;">
-    <div class="shadow col-md-4 form-search"  style="background-color: white; padding :2%; border-radius: 50px">
+    <div class="shadow col-md-4 form-search"  style="background-color: white; padding :2%; border-radius: 0.5em">
         <div class="row">
             <div class="col-md-4">
                 <img width="100" height="100" class="round" avatar="{{Auth::user()->name}}">

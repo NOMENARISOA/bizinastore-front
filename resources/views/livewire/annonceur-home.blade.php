@@ -7,14 +7,14 @@
     <!--My Account Start-->
 
     <div class="row" style="padding-top: 2%;padding-left: 5%">
-        <div class="shadow col-md-2 form-search"  style="background-color: #00A1F1;border-radius: 20px;">
+        <div class="shadow col-md-2 form-search"  style="background-color: #00A1F1;border-radius: 0.5em;">
             <h3 class="text-center" style="font-family: segouil; font-weight: 100;color:white" >Backoffice Annoce</h3>
         </div>
     </div>
     <style>
         .btn-header{
             font-weight: 100 !important;
-            border-radius: 20px !important;
+            border-radius: 0.5em !important;
             background-color: #00BB26;
             color :white !important
         }
@@ -44,7 +44,7 @@
         <div class="row" style="padding: 2%;">
             <div class="col-md-3">
                 <div class="shadow card">
-                    <div class="card-header" style="background-color: #FFF; border:none;">
+                    <div class="card-header" style="background-color: #FFF; border:none;border-radius: 0.5em">
                         <div class="text-center card-title">
                             <div class="row">
                                 <h3 style="font-weight: bold;font-family: segouil">Annonce Vendue/En Vente</h3>
@@ -58,7 +58,7 @@
             </div>
             <div class="col-md-9">
                 <div class="shadow card">
-                    <div class="card-header" style="background-color: #FFF; border:none;">
+                    <div class="card-header" style="background-color: #FFF; border:none;border-radius: 0.5em">
                         <div class="text-center card-title">
                             <div class="row">
                                 <h3 style="font-weight: bold;font-family: segouil">Annonce Vente / En Vente Par mois</h3>
@@ -173,7 +173,7 @@
         <div class="row justify-content-center" style='padding:2%'>
             <div class="col-md-10 col-lg-10">
                 <div class="shadow card">
-                    <div class="card-header" style="background-color: #FFF; border:none;">
+                    <div class="card-header rounded" style="background-color: #FFF; border:none;">
                         <div class="card-title ">
                             <div class="row" style="">
                                 <h3 style="font-weight: bold;font-family: segouil">Liste des annonces</h3>
