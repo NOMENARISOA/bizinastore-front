@@ -42,7 +42,7 @@
         padding: 0px;
     }  --}}
     .btn-validate{
-        background-color: #00A1F1;
+        background-color: #f75314;
        // border-radius: 50px;
         color: white;
         font-weight: bold;
@@ -69,7 +69,7 @@
             </div>
         </div>
         {{-- <h4 class="text-center">Inscription </h2> --}}
-        <p class="text-center" style="font-family: segouil; margin-top: 2%">Eo adducta re per Isauriam, rege Persarum bellis finitimis inligato repellenteque a conlimitiis suis ferocissimas gentes, quae mente quadam versabili hostiliter</p>
+        <p class="text-center" style="font-family: segouil; margin-top: 2%">Merci de remplir les champs obligatoires</p>
             <form class="text-center" method="POST" action="{{ route('login') }}">
                 @csrf
                 <input class="inputtext" type="text" name="name" id="name" placeholder="Votre Nom (*)" required>
@@ -91,11 +91,11 @@
         <br>
         <div class="row justify-content-center">
             <div class="col-md-2">
-                <a href="{{ route('socialite.redirect', 'google') }}" title="Connexion/Inscription avec Google" class="btn shadow" style="background-color: #f75314;color:white;font-family: segouil;font-weight: 100;padding-left: 2%;padding-right: 2%;font-size: 0.7em;min-width:50px;border-radius:50%"> <i class="fa fa-google"></i></a>
+                <a href="{{ route('socialite.redirect', 'google') }}" title="Connexion/Inscription avec Google" class="btn shadow" style="background-color: white;color:white;font-family: segouil;font-weight: 100;padding-left: 2%;padding-right: 2%;font-size: 0.7em;min-width:50px;border-radius:50%"> <img src="{{ asset("assets/images/gmail_logo.png") }}" alt="logo_google" srcset=""></a>
 
             </div>
             <div class="col-md-2">
-                <a href="{{ route('socialite.redirect', 'facebook') }}" title="Connexion/Inscription avec Facebook" class="btn shadow" style="background-color: #3b5998;color:white;font-family: segouil;font-weight: 100;padding-left: 2%;padding-right: 2%;font-size: 0.7em;min-width:50px;border-radius:50%"> <i class="fa fa-facebook"></i></a>
+                <a href="{{ route('socialite.redirect', 'facebook') }}" title="Connexion/Inscription avec Facebook" class="btn shadow" style="background-color: #1877f2;color:white;font-family: segouil;font-weight: 100;padding-left: 2%;padding-right: 2%;font-size: 0.7em;min-width:50px;border-radius:50%;padding-top:0px"> <img src="{{ asset("assets/images/fb_logo.png") }}" alt="logo_facebook" srcset=""></a>
             </div>
         </div>
     </div>

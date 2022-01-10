@@ -184,13 +184,13 @@
             <style>
                 .leftheader{
                     border-radius: 0px 20px 20px 0px;
-                    background-color: #00a1f1;
+                    background-color: #FFBB02;
                     border:none;
                     max-width: 20px;
 
                 }
                 .leftheader:hover{
-                    background-color: #82bd01 !important;
+                    background-color: #8f90918a !important;
                 }
             </style>
             <div class="buttonMenuHeader" style="position: fixed;z-index: 1;font-family: segouil;">
