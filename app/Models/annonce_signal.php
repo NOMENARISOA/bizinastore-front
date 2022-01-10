@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class annonce_signal extends Model
 {
     use HasFactory;
+
+    public function annonce(){
+        return $this->belongsTo('App\Models\annonce','annonce_id');
+    }
 }

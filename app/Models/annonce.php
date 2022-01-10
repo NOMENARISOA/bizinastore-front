@@ -68,5 +68,9 @@ class annonce extends Model
         return $this->hasMany('App\Models\annonce_sub_categorie_value','annonce_id');
     }
 
+    public function signal(){
+        return $this->hasMany('App\Models\annonce_signal','annonce_id');
+    }
+
 
 }
